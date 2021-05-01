@@ -28,8 +28,17 @@ public class ItemDTO {
         this.price = price;
         this.itemVAT = itemVAT;
     }
+    
+    /**
+     * Constructor for itemDTO when only item identifier is given
+     * 
+     * @param itemIdentifier which given
+     */
+    public ItemDTO(String itemIdentifier) {
+        this.itemIdentifier = itemIdentifier;
+    }
 
-    /** /
+    /** 
      * Getter method that retrieves ItemIdentifier
      * 
      * @return String with item identifier
@@ -38,7 +47,7 @@ public class ItemDTO {
         return itemIdentifier;
     }
 
-    /** /
+    /** 
      * Getter method that retrieves ItemDescription
      * 
      * @return String with item description
@@ -47,7 +56,7 @@ public class ItemDTO {
         return itemDescription;
     }
 
-    /** /
+    /** 
      * Getter method that retrieves Price
      * 
      * @return Amount, the price in Amount
@@ -56,7 +65,7 @@ public class ItemDTO {
         return price;
     }
 
-    /** /
+    /** 
      * Getter method that retrieves itemVAT
      * 
      * @return String with VAT 
@@ -65,7 +74,7 @@ public class ItemDTO {
         return itemVAT;
     }
     
-    /** /
+    /** 
      * toString method for itemDTO
      * 
      * @return a String with information about the itemDTO object
@@ -74,16 +83,16 @@ public class ItemDTO {
     public String toString() {
         StringBuilder itemDTOString = new StringBuilder();
         
-        itemDTOString.append ("itemIdentifier: " + itemIdentifier);
+        itemDTOString.append("itemIdentifier: ").append (itemIdentifier);
         newLine (itemDTOString);
         
-        itemDTOString.append ("itemDescription: " + itemDescription);
+        itemDTOString.append("itemDescription: ").append (itemDescription);
         newLine (itemDTOString);
         
-        itemDTOString.append ("price: " + price);
+        itemDTOString.append("price: ").append (price);
         newLine (itemDTOString);
         
-        itemDTOString.append ("itemVAT: " + itemVAT);
+        itemDTOString.append("itemVAT: ").append (itemVAT);
         newLine (itemDTOString);
         
         return itemDTOString.toString();

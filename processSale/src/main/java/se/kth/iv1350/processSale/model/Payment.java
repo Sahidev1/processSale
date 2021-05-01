@@ -11,18 +11,21 @@ import se.kth.iv1350.processSale.util.Amount;
 public class Payment {
     private Amount change;
     private SaleInformation saleInformation;
+    private Receipt receipt;
+    private IntegrationCreator integrations;
+    private CashRegister cashRegister;
     
     /**
      * Constructor for the class Payment
      */
     public Payment (){
-        
+        this.receipt = new Receipt();
     }
     
     /**
      * This class updates the payment information 
      * 
-     * @param paymentAmount amount paid by costumer
+     * @param saleInformation is updated
      */
     public void updatePayment (SaleInformation saleInformation){
         this.saleInformation = saleInformation;    
@@ -32,12 +35,13 @@ public class Payment {
      * This method retrieves an IntegrationCreator to give access to classes
      * in the integration layer
      * 
-     * @param integrationCreator gives access to integration classes
+     * @param integrations gives access to integration classes
      * @param cashRegister gives access to the cash register
      */
-    public void getPaymentParts (IntegrationCreator integrationCreator,
+    public void givePaymentParts (IntegrationCreator integrations,
     CashRegister cashRegister){
-    
+        this.integrations = integrations;
+        this.cashRegister = cashRegister;
     }
     
     /**

@@ -11,14 +11,14 @@ import se.kth.iv1350.processSale.util.Amount;
 public class CashRegister {
     private Amount balance;
     
-    /** /
+    /** 
      * Constructor for the class CashRegister
      */
     public CashRegister (){
         
     }
     
-    /** /
+    /** 
      * This method adds an amount to the current balance
      * 
      * @param amount to add

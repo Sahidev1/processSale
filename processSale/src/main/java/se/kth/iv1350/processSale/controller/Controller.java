@@ -5,7 +5,10 @@ import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.integration.ItemDTO;
+import se.kth.iv1350.processSale.integration.ItemRegistry;
+import se.kth.iv1350.processSale.model.CashRegister;
 import se.kth.iv1350.processSale.model.Payment;
+import se.kth.iv1350.processSale.model.Sale;
 import se.kth.iv1350.processSale.util.Amount;
 
 /**
@@ -16,8 +19,11 @@ import se.kth.iv1350.processSale.util.Amount;
 public class Controller {
     private IntegrationCreator integrations;
     private Printer printer;
+    private CashRegister cashRegister;
+    private Sale sale;
+
     
-    /** /
+    /** 
      * Constructor for the Controller
      * 
      * @param integrations is an IntegrationsCreator object
@@ -26,26 +32,33 @@ public class Controller {
     public Controller (IntegrationCreator integrations, Printer printer){
         this.integrations = integrations;
         this.printer = printer;  
+        this.cashRegister = new CashRegister();
     }
     
-    /** /
+    /** 
      * This method starts a new sale
+     * 
+     * @return a reference to the sale in controller
      */
-    public void newSale(){
-        
+    public Sale newSale(){
+        this.sale = new Sale();
+        sale.givePaymentParts (integrations, cashRegister);
+        return this.sale;
     }
     
-    /** /
+    /** 
      * This method searches for an item in the database
      * 
      * @param searchedItem an itemDTO object
      * @return Item that was found in the database
      */
     public Item searchItem (ItemDTO searchedItem){
-        
+        ItemRegistry itemReg = integrations.getItemRegistry ();
+        Item foundItem = itemReg.searchItem(searchedItem);
+        return foundItem;
     }
     
-    /** /
+    /** 
      * This method searches for an item in the the database
      * and also holds the quantity of the searched item
      * 
@@ -57,7 +70,7 @@ public class Controller {
         
     }
     
-    /** /
+    /** 
      * This method is used when there is a discount request
      * 
      * @param costumerDTO is a data of a costumers personal details
@@ -67,16 +80,16 @@ public class Controller {
         
     }
     
-    /** /
+    /** 
      * This method retrieves the total price of the Sale
      * 
      * @return total price of sale
      */
     public Amount getTotalPrice (){
-        
+        return sale.getTotalPrice();
     }
     
-    /** /
+    /** 
      * This method is called to deal with the payment of sale
      * 
      * @param paymentAmount the amount to pay for the sale

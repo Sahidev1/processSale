@@ -7,11 +7,57 @@ package se.kth.iv1350.processSale.integration;
  * @author Ali Sahibi
  */
 public class IntegrationCreator {
-    
-    /** /
+    private ExternalInventory externalInventory;
+    private ExternalAccounting externalAccounting;
+    private CostumerRegistry costumerRegistry;
+    private ItemRegistry itemRegistry;
+
+    /** 
      * Constructor for the class IntegrationCreator
+     * 
+     * When the constructor is called it creates four new
+     * objects tasked with interacting with external systems
      */
-    public IntegrationCreator (){
-        
+    public IntegrationCreator() {
+        this.externalInventory = new ExternalInventory();
+        this.externalAccounting = new ExternalAccounting();
+        this.costumerRegistry = new CostumerRegistry();
+        this.itemRegistry = new ItemRegistry();
     }
+    
+    /**
+     * Getter for the externalInventory
+     * 
+     * @return the externalInventory
+     */
+    public ExternalInventory getExternalInventory() {
+        return externalInventory;
+    }
+
+    /**
+     * Getter for the externalAccounting
+     * 
+     * @return the externalAccounting
+     */
+    public ExternalAccounting getExternalAccounting() {
+        return externalAccounting;
+    }
+
+    /**
+     * Getter for the costumerRegistry
+     * 
+     * @return the costumerRegistry
+     */
+    public CostumerRegistry getCostumerRegistry() {
+        return costumerRegistry;
+    }
+    
+    /**
+     * Getter for the itemRegistry
+     * 
+     * @return the itemRegistry
+     */
+    public ItemRegistry getItemRegistry() {
+        return itemRegistry;
+    }    
 }

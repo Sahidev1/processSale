@@ -1,6 +1,8 @@
 package se.kth.iv1350.processSale.model;
 
+import java.util.List;
 import se.kth.iv1350.processSale.integration.CostumerDTO;
+import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.util.Amount;
 
@@ -12,21 +14,28 @@ import se.kth.iv1350.processSale.util.Amount;
  */
 public class Sale {
     private SaleInformation saleInformation;
+    private Payment payment;
+
     
-    /** /
+    /** 
      * Constructor method for the class Sale
      */
     public Sale (){
-        
+        this.saleInformation = new SaleInformation();
+        this.payment = new Payment();
     }
     
-    /** /
+    /** 
      * This method retrieves the current total price of the sale
      * 
      * @return amount the total price of the sale
      */
     public Amount getTotalPrice (){
         return saleInformation.getTotalPrice();
+    }
+    
+    public List<Item> getListOfItems (){
+        return saleInformation.getListOfItems();
     }
     
     /**
@@ -55,7 +64,9 @@ public class Sale {
      * @param foundItem the item to be added
      */
     public void addItemToSale (Item foundItem){
-        
+        if (hasItemAlreadyBeenAdded (foundItem)){
+            saleInformation.increment;
+        }
     }
     
     /**
@@ -76,5 +87,32 @@ public class Sale {
     public void incrementQuantityOfAnItem (Item foundItem){
         
     }
+    
+    /**
+     * This method transfers there references to the Payment class
+     * 
+     * @param integrations an IntegrationsCreator
+     * @param cashRegister a CashRegister
+     */
+    public void givePaymentParts (IntegrationCreator integrations,
+            CashRegister cashRegister){
+        payment.givePaymentParts (integrations, cashRegister);
+    }
+    
+    private boolean hasItemAlreadyBeenAdded (Item item){
+        List <Item> listOfItems = saleInformation.getListOfItems();
+        for (Item itemInTheList : listOfItems) {
+            if (itemInTheList.equals(item)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private Item getItemFromTheList (Item item){
+        return saleInformation.searchForItem(item);
+    }
+    
+    
     
 }
