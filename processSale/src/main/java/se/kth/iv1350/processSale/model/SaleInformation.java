@@ -58,6 +58,36 @@ public class SaleInformation {
         return null;
     }
     
+    /**
+     * This method checks wether an item already is in the List of items
+     * 
+     * @param item is the item that is getting check
+     * @return true if it is in the list, else false
+     */
+    public boolean hasItemAlreadyBeenAdded (Item item){
+        for (Item itemInList : items){
+            if (itemInList.equals(item)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * This method increment the quantity of an item
+     * 
+     * @param item to increment quantity of
+     */
+    public void incrementQuantityOfItem (Item item){
+        item.incrementQuantityOfItem ();
+        int quantity = 1;
+        updateTotalPrice (item, quantity);
+    }
+    
+    public void updateQuantityOfItem (Item item, int addedQuantity){
+        item.updateQuantityOfItem (item, addedQuantity);
+    }
+    
     /** 
      * This method adds the amount the costumer paid for the sale
      * 
@@ -74,7 +104,8 @@ public class SaleInformation {
      */
     public void addItem (Item item){
         items.add(item);
-        updateTotalPrice (item);
+        int quantity =  item.getQuantity();
+        updateTotalPrice (item, quantity);
     }
     
     /**
@@ -92,8 +123,8 @@ public class SaleInformation {
      * 
      * @param item that is added to the sale 
      */
-    private void updateTotalPrice (Item item){
-        totalPrice = totalPrice.add(item.getPrice());
+    private void updateTotalPrice (Item item, int quantity){
+        totalPrice = totalPrice.add(new Amount(item.getPrice().getValue() * quantity));
     }
     
 }

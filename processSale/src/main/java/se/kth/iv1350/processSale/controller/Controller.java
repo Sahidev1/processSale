@@ -55,6 +55,14 @@ public class Controller {
     public Item searchItem (ItemDTO searchedItem){
         ItemRegistry itemReg = integrations.getItemRegistry ();
         Item foundItem = itemReg.searchItem(searchedItem);
+        sale.addItemToSale(foundItem);
+        
+        if (foundItem.getIsItemValid()){
+            if (sale.hasItemAlreadyBeenAdded(foundItem)){
+                return sale.getItemFromTheList(foundItem);
+            }
+        }
+        
         return foundItem;
     }
     
@@ -64,10 +72,20 @@ public class Controller {
      * 
      * @param searchedItem an itemDTO object
      * @param quantity quantity of the itemDTO type searched
-     * @return 
+     * @return item that was found in the database with the set quantity
      */
     public Item searchItem (ItemDTO searchedItem, int quantity){
+        ItemRegistry itemReg = integrations.getItemRegistry ();
+        Item foundItem = itemReg.searchItem(searchedItem, quantity);
+        sale.addItemToSale(foundItem);
         
+        if (foundItem.getIsItemValid()){
+            if (sale.hasItemAlreadyBeenAdded(foundItem)){
+                return sale.getItemFromTheList(foundItem);
+            }
+        }
+        
+        return foundItem;
     }
     
     /** 

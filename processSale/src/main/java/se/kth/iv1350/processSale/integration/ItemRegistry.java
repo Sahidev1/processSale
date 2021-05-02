@@ -30,15 +30,7 @@ public class ItemRegistry {
      * @return item object is returned
      */
     public Item searchItem (ItemDTO itemDTO){
-        String itemIdentifier = itemDTO.getItemIdentifier();
-        
-        for (Item item : itemData) {
-            if (doesItMatch(itemIdentifier, item)){
-                return item;
-            }
-        }
-        
-        return createInvalidItem();
+        return searchItem (itemDTO, 1);
     }
     
     /** 
@@ -51,7 +43,19 @@ public class ItemRegistry {
      * @return item object with a specific quantity is returned
      */
     public Item searchItem (ItemDTO itemDTO, int quantity){
+        String itemIdentifier = itemDTO.getItemIdentifier();
+        Item foundItem;
         
+        for (Item itemInRegistry : itemData) {
+            if (doesItMatch(itemIdentifier, itemInRegistry)){
+                foundItem = new Item(itemInRegistry);
+                foundItem.setQuantityOfItem(quantity);
+                return foundItem;
+            }
+        }
+        
+        foundItem = createInvalidItem();
+        return foundItem;
     }
     
     /**
@@ -88,13 +92,19 @@ public class ItemRegistry {
         Amount priceOfItem0 = new Amount (22);
         Percentage VATofItem0 = new Percentage (8);
         ItemDTO itemDTO0 = new ItemDTO ("AX356235", "Apple", priceOfItem0, VATofItem0);
-        Item item0 = new Item (itemDTO0);
-        itemData.add(item0);
+        Item apple = new Item (itemDTO0);
+        itemData.add(apple);
         
         Amount priceOfItem1 = new Amount (34);
         Percentage VATofItem1 = new Percentage (9);
         ItemDTO itemDTO1 = new ItemDTO ("AX531319", "Sandwich", priceOfItem1, VATofItem1);
-        Item item1 = new Item (itemDTO1);
-        itemData.add(item1);
+        Item sandwich = new Item (itemDTO1);
+        itemData.add(sandwich);
+        
+        Amount priceOfItem2 = new Amount (56);
+        Percentage VATofItem2 = new Percentage (11);
+        ItemDTO itemDTO2 = new ItemDTO ("BX029510", "Pumpkin", priceOfItem2, VATofItem2);
+        Item pumpkin = new Item (itemDTO2);
+        itemData.add(pumpkin);
     }
 }

@@ -14,7 +14,6 @@ import se.kth.iv1350.processSale.util.Amount;
  */
 public class View {
     private Controller contr;
-    
     /** /
      * Constructor for the class View
      * 
@@ -26,15 +25,33 @@ public class View {
     
     public void hardCodedCalls (){
         Sale currentSale = contr.newSale();
-        System.out.println ("newSale() method called");
+        System.out.println ("newSale() method called" + "\n");
         
         String itemIdentifier = "AX531319";
         ItemDTO searchedItem = new ItemDTO (itemIdentifier);
         Item foundItem = contr.searchItem (searchedItem);
         System.out.println(foundItem.toString());
-        currentSale.addItemToSale (foundItem);
-        Amount totalcost = contr.getTotalPrice();
-        System.out.println (totalcost);
+        System.out.println ("Total cost: " + contr.getTotalPrice() + "\n");
         
-    }
+        String identifierOfAlreadySearchedItem = "AX531319";
+        ItemDTO alreadySearchedItem = new ItemDTO (identifierOfAlreadySearchedItem);
+        Item foundItemThatIsAlreadySearched = contr.searchItem(alreadySearchedItem);
+        System.out.println (foundItemThatIsAlreadySearched);
+        System.out.println ("Total cost: " + contr.getTotalPrice() + "\n");  
+        
+        String itemIdentifierOfMultipleItems = "BX029510";
+        int quantityOfItem = 7;
+        ItemDTO searchMultipleOfItem = new ItemDTO (itemIdentifierOfMultipleItems);
+        Item foundItemOfMultipleItems = contr.searchItem(searchMultipleOfItem, quantityOfItem); 
+        System.out.println (foundItemOfMultipleItems);
+        System.out.println(contr.getTotalPrice() + "\n");
+        
+        String invalidItemIdentifier = "INVALIDIDENTIFIER000";
+        ItemDTO searchedInvalidItem = new ItemDTO (invalidItemIdentifier);
+        Item foundInvalidItem = contr.searchItem (searchedInvalidItem);
+        System.out.println(foundInvalidItem + "\n");
+        System.out.println (contr.getTotalPrice() + "\n");
+        
+        System.out.println(currentSale.getListOfItems());
+    }   
 }

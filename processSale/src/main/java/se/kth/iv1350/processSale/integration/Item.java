@@ -31,6 +31,18 @@ public class Item {
     }
     
     /**
+     * Copy Constructor that creates a new object that is a copy of the object 
+     * in the parameter
+     * 
+     * @param itemToCopy the Item to copy
+     */
+    public Item (Item itemToCopy){
+        this.quantity = itemToCopy.quantity;
+        this.isItemValid = itemToCopy.isItemValid;
+        this.itemDTO = itemToCopy.itemDTO;
+    }
+    
+    /**
      * Getter for the quantity
      * 
      * @return a quantity describes by an integer
@@ -65,15 +77,6 @@ public class Item {
     public String getItemIdentifier(){
         return itemDTO.getItemIdentifier();
     }
-
-    /**
-     * Setter for the isItemValid field
-     * 
-     * @param isItemValid a boolean value
-     */
-    public void setIsItemValid(boolean isItemValid) {
-        this.isItemValid = isItemValid;
-    }
     
     /**
      * Getter for the price of the item
@@ -84,11 +87,33 @@ public class Item {
         return itemDTO.getPrice();
     }
     
+    /**
+     * Setter for the isItemValid field
+     * 
+     * @param isItemValid a boolean value
+     */
+    public void setIsItemValid(boolean isItemValid) {
+        this.isItemValid = isItemValid;
+    }
+
+    /**
+     * Sets the quantity of an item
+     * 
+     * @param quantity to set
+     */
+    public void setQuantityOfItem (int quantity){
+        this.quantity = quantity;
+    }
+    
     /** 
      * This method increases the quantity of an item
      */
     public void incrementQuantityOfItem (){
         quantity++;
+    }
+    
+    public void updateQuantityOfItem (Item item, int addedQuantity){
+        quantity = quantity + addedQuantity;
     }
     
     /**

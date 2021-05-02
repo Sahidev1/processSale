@@ -63,9 +63,15 @@ public class Sale {
      * 
      * @param foundItem the item to be added
      */
-    public void addItemToSale (Item foundItem){
-        if (hasItemAlreadyBeenAdded (foundItem)){
-            saleInformation.increment;
+    public void addItemToSale (Item foundItem){       
+        if (foundItem.getIsItemValid()){
+            if (hasItemAlreadyBeenAdded (foundItem)){
+                incrementQuantityOfItem (getItemFromTheList(foundItem));
+            }
+            
+            else {
+                saleInformation.addItem(foundItem);
+            }
         }
     }
     
@@ -76,7 +82,16 @@ public class Sale {
      * @param quantity the quantity of the item to be added
      */
     public void addItemToSale (Item foundItem, int quantity){
-        
+        if (foundItem.getIsItemValid()){
+            if (hasItemAlreadyBeenAdded (foundItem)){
+                updateQuantityOfItem (getItemFromTheList(foundItem), quantity);
+            }
+            
+            else {
+                foundItem.setQuantityOfItem(quantity);
+                saleInformation.addItem(foundItem);
+            }
+        }   
     }
     
     /**
@@ -84,12 +99,12 @@ public class Sale {
      * 
      * @param foundItem the item to increment the quantity of
      */
-    public void incrementQuantityOfAnItem (Item foundItem){
-        
+    private void incrementQuantityOfItem (Item foundItem){
+        saleInformation.incrementQuantityOfItem(foundItem);
     }
     
     /**
-     * This method transfers there references to the Payment class
+     * This method transfers the references to the Payment class
      * 
      * @param integrations an IntegrationsCreator
      * @param cashRegister a CashRegister
@@ -99,20 +114,29 @@ public class Sale {
         payment.givePaymentParts (integrations, cashRegister);
     }
     
-    private boolean hasItemAlreadyBeenAdded (Item item){
-        List <Item> listOfItems = saleInformation.getListOfItems();
-        for (Item itemInTheList : listOfItems) {
-            if (itemInTheList.equals(item)){
-                return true;
-            }
-        }
-        return false;
+    /**
+     * This method checks whether an item has already been added to the list of
+     * sale items
+     * 
+     * @param item the item to check
+     * @return true if item already exists, else false
+     */
+    public boolean hasItemAlreadyBeenAdded (Item item){
+        return saleInformation.hasItemAlreadyBeenAdded(item);
     }
     
-    private Item getItemFromTheList (Item item){
+    /**
+     * This method retrieves the item in the list that is searched for
+     * 
+     * @param item that is to be retrieved
+     * @return the found item, if no items is found it returns null
+     */
+    public Item getItemFromTheList (Item item){
         return saleInformation.searchForItem(item);
     }
-    
-    
-    
+
+    private void updateQuantityOfItem(Item foundItem, int addedQuantity) {
+        saleInformation.updateQuantityOfItem(foundItem, addedQuantity);
+    }
+       
 }
