@@ -25,6 +25,7 @@ public class Receipt {
      */
     public void updateReceipt (SaleInformation saleInformation){
         this.saleInformation = saleInformation;
+        printer.printReceipt(this);
     }
     
     /** 

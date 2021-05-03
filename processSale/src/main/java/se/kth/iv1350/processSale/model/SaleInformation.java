@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.util.Amount;
+import se.kth.iv1350.processSale.util.Percentage;
 
 /**
  * This class holds information about the ongoing sale
@@ -32,6 +33,12 @@ public class SaleInformation {
     public Amount getTotalPrice (){
         return totalPrice;
     }
+
+    public Amount getPaymentAmount() {
+        return paymentAmount;
+    }
+    
+    
     
     /**
      * Getter method for the list of items
@@ -93,7 +100,7 @@ public class SaleInformation {
      * 
      * @param paymentAmount amount of the payment
      */
-    public void addpayment (Amount paymentAmount){
+    public void addPayment (Amount paymentAmount){
         this.paymentAmount = paymentAmount;
     }
     
@@ -107,6 +114,22 @@ public class SaleInformation {
         int quantity =  item.getQuantity();
         updateTotalPrice (item, quantity);
     }
+    
+    /**
+     * Updates the total price based on the discount for the costumer
+     * 
+     * @param discount the discount object with information about the discount
+     */
+    public void updateTotalPriceBasedOnDiscount (Discount discount){
+        Percentage discountPercent = discount.getCalculatedDiscount();
+        totalPrice = calculateTotalPriceBasedOnDiscount (discountPercent);
+    }
+    
+    private Amount calculateTotalPriceBasedOnDiscount (Percentage discount){
+        return new Amount (1.00 - (discount.getPercentValue() / 100)).
+        multiply(totalPrice);
+    }
+    
     
     /**
      * This method calculates the change to give back to the costumer

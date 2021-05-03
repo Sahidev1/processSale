@@ -17,32 +17,49 @@ public class Discount {
     private Sale sale;
     private CostumerDTO costumerDTO;
     private CostumerRegistry costumerRegistry;
+    private Percentage calculatedDiscount;
     
-    /** /
+    /** 
      * Constructor for the class Discount
      */
     public Discount (){
-        
+        this.calculatedDiscount = new Percentage (0);
+    }
+
+    public Percentage getCalculatedDiscount() {
+        return calculatedDiscount;
     }
     
-    /** /
+    
+    
+    /** 
      * This method handles a discount request
      * 
-     * @param costumerDTO the costumer is requesting a discount
+     * @param costumerDTO the costumer that is requesting a discount
      * @return percent discount 
      */
-    public Percentage discountRequest (CostumerDTO costumerDTO, Sale sale){
+    public void discountRequest (CostumerDTO costumerDTO, Sale sale){
         this.sale = sale;
         this.costumerDTO = costumerDTO;
-        return calculateDiscount ();
+        calculatedDiscount = calculateDiscount();
     }
     
+    /**
+     * This method gives the discount object access to the costumerRegistry
+     * 
+     * @param integrations IntegrationsCreator object which holds getter for
+     * costumerRegistry
+     */
     public void getAccessToCostumerRegistry (IntegrationCreator integrations){
         this.costumerRegistry = integrations.getCostumerRegistry();
     }
     
-    /** /
+    /** 
      * This method calculates the discount
+     * 
+     * Observe that when the searchCostumer call is made to costumerRegistry
+     * that if there's a match the customerDTO is updated with the discount the
+     * costumer is entitled to
      * 
      * @return percent discount 
      */

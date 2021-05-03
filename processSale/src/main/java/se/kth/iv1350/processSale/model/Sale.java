@@ -4,6 +4,7 @@ import java.util.List;
 import se.kth.iv1350.processSale.integration.CostumerDTO;
 import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
+import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.util.Amount;
 import se.kth.iv1350.processSale.util.Percentage;
 
@@ -48,24 +49,21 @@ public class Sale {
      */
     public Amount discountRequest (CostumerDTO customerinfo, Discount discount){
         this.discount = discount;
-        Percentage discountPercent = this.discount.discountRequest(customerinfo, this);
-        return updatePriceBasedOnDiscount(discountPercent);
+        this.discount.discountRequest(customerinfo, this);
+        saleInformation.updateTotalPriceBasedOnDiscount (this.discount);
+        return saleInformation.getTotalPrice();
     }
-
-    private Amount updatePriceBasedOnDiscount(Percentage discountPercent) {
-        Amount updatedPrice = new Amount (100 - discountPercent.getPercentValue()).
-        multiply(saleInformation.getTotalPrice());
-        return updatedPrice;
-    }
-    
+   
     /**
      * This method initiates a payment for a sale
      * 
      * @param paymentAmount how much was paid for the sale
-     * @return a Payment object holding information about the payment
      */
-    public Payment makePayment (Amount paymentAmount){
-        
+    public void makePayment (Amount paymentAmount){
+        saleInformation.addPayment(paymentAmount);
+        payment.getSaleInformation (saleInformation);
+        payment.updateExternalSystems();
+        payment.updateReceipt ();
     }
     
     /**
@@ -118,14 +116,11 @@ public class Sale {
      * 
      * @param integrations an IntegrationsCreator
      * @param cashRegister a CashRegister
+     * @param printer
      */
     public void givePaymentParts (IntegrationCreator integrations,
-    CashRegister cashRegister){
-        payment.givePaymentParts (integrations, cashRegister);
-    }
-    
-    public void giveAccessToCostumerRegistry (IntegrationCreator integrations){
-        discount.getAccessToCostumerRegistry (integrations);
+    CashRegister cashRegister, Printer printer){
+        payment.givePaymentParts (integrations, cashRegister, printer);
     }
     
     /**

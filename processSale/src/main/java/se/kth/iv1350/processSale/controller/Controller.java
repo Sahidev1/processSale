@@ -44,7 +44,7 @@ public class Controller {
      */
     public Sale newSale(){
         this.sale = new Sale();
-        sale.givePaymentParts (integrations, cashRegister);
+        sale.givePaymentParts (integrations, cashRegister, printer);
         return this.sale;
     }
     
@@ -98,7 +98,7 @@ public class Controller {
      */
     public Amount requestDiscount (CostumerDTO costumerDTO){
         this.discount = new Discount ();
-        sale.giveAccessToCostumerRegistry (integrations);
+        discount.getAccessToCostumerRegistry (integrations);
         Amount updatedPrice = sale.discountRequest(costumerDTO, this.discount);
         return updatedPrice;
     }
@@ -118,8 +118,8 @@ public class Controller {
      * @param paymentAmount the amount to pay for the sale
      * @return a payment object which holds information about the payment
      */
-    public Payment makePayment (Amount paymentAmount){
-        
+    public void makePayment (Amount paymentAmount){
+        sale.makePayment(paymentAmount);
     }
 }
 

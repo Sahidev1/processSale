@@ -1,6 +1,9 @@
 package se.kth.iv1350.processSale.model;
 
+import se.kth.iv1350.processSale.integration.ExternalAccounting;
+import se.kth.iv1350.processSale.integration.ExternalInventory;
 import se.kth.iv1350.processSale.integration.IntegrationCreator;
+import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.util.Amount;
 
 /**
@@ -27,8 +30,17 @@ public class Payment {
      * 
      * @param saleInformation is updated
      */
-    public void updatePayment (SaleInformation saleInformation){
-        this.saleInformation = saleInformation;    
+    public void updateExternalSystems (){
+        ExternalInventory inventory = integrations.getExternalInventory();
+        ExternalAccounting accounting = integrations.getExternalAccounting();
+        inventory.updateInventory(saleInformation);
+        accounting.updateAccounting(saleInformation);
+        cashRegister.addToBalance(saleInformation.getPaymentAmount());
+        calculateChange();  
+    }
+    
+    public void updateReceipt (){
+        receipt.updateReceipt(saleInformation);
     }
     
     /**
@@ -37,11 +49,17 @@ public class Payment {
      * 
      * @param integrations gives access to integration classes
      * @param cashRegister gives access to the cash register
+     * @param printer
      */
     public void givePaymentParts (IntegrationCreator integrations,
-    CashRegister cashRegister){
+    CashRegister cashRegister, Printer printer){
         this.integrations = integrations;
         this.cashRegister = cashRegister;
+        receipt.accessPrinter(printer);
+    }
+    
+    public void getSaleInformation (SaleInformation saleInformation){
+        this.saleInformation = saleInformation;
     }
     
     /**

@@ -45,18 +45,21 @@ public class View {
         ItemDTO searchMultipleOfItem = new ItemDTO (itemIdentifierOfMultipleItems);
         Item foundItemOfMultipleItems = contr.searchItem(searchMultipleOfItem, quantityOfItem); 
         System.out.println (foundItemOfMultipleItems);
-        System.out.println(contr.getTotalPrice() + "\n");
+        System.out.println("Total cost: " + contr.getTotalPrice() + "\n");
         
         String invalidItemIdentifier = "INVALIDIDENTIFIER000";
         ItemDTO searchedInvalidItem = new ItemDTO (invalidItemIdentifier);
         Item foundInvalidItem = contr.searchItem (searchedInvalidItem);
         System.out.println(foundInvalidItem + "\n");
-        System.out.println (contr.getTotalPrice() + "\n");
+        System.out.println ("Total cost: " + contr.getTotalPrice() + "\n");
         
         CostumerDTO costumerRequestingDiscount = new CostumerDTO ("John Doe",
         "19880509", "DoeTown evergreenstreet 22", "2391000102");
-        contr.requestDiscount (costumerRequestingDiscount);
-       // System.out.println (updatedPrice);
+        Amount updatedPrice = contr.requestDiscount (costumerRequestingDiscount);
+        System.out.println ("Total cost: " + updatedPrice + "\n");
+        
+        Amount paymentFromCostumer = new Amount (500);
+        contr.makePayment(paymentFromCostumer);
         
         System.out.println(currentSale.getListOfItems());
     }   

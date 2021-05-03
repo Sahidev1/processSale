@@ -15,7 +15,7 @@ public class CashRegister {
      * Constructor for the class CashRegister
      */
     public CashRegister (){
-        
+        retrieveBalance ();
     }
     
     /** 
@@ -25,6 +25,16 @@ public class CashRegister {
      */
     public void addToBalance (Amount amount){
         balance = balance.add(amount);
+    }
+    
+    /**
+     * This method retrieves the balance of the cashRegister from
+     * cashRegister memory/network holding that data
+     * 
+     * In this case we assume the cashRegister is holding this amount
+     */
+    private void retrieveBalance (){
+        this.balance = new Amount (2511);
     }
 
 }

@@ -22,17 +22,15 @@ public class CostumerRegistry {
     
     /** /
      * This method searches for a costumer based on the given costumerDTO,
-     * if there's a match it returns a costumerDTO with more complete information
+     * if there's a match it sets the correct base discount for the searched costumer
+     * if there's no match it sets the base discount for the customer to 0 percent
      * 
      * @param customerInformation used to search for a match
      */
     public void searchCostumer (CostumerDTO customerInformation){
         if (isCostumerInRegistry(customerInformation)){          
-            for (CostumerDTO customer : costumerData){
-                if (customerInformation.equals(customer)){
-                    customerInformation.setDiscount(customer.getBaseDiscountForCustomer());
-                }
-            }
+            CostumerDTO matchedCostumerInDataBase = getCostumerFromRegistry (customerInformation);
+            customerInformation.setDiscount (matchedCostumerInDataBase.getBaseDiscountForCustomer());
         }
         else {
             Percentage zeroPercent = new Percentage (0);
@@ -56,6 +54,23 @@ public class CostumerRegistry {
         }
         return isCostumerInRegistry;
     }
+    
+    /**
+     * This method searches for a costumer in the database
+     * 
+     * @param costumerInformation the costumer that is searched for
+     * @return if the costumer is found the costumerDTO is returned, else null 
+     */
+    private CostumerDTO getCostumerFromRegistry (CostumerDTO costumerInformation){
+        for (CostumerDTO costumer : costumerData){
+            if (costumerInformation.equals(costumer)){
+                return costumer;
+            }
+        }
+        return null;
+    }
+    
+    
     
     /**
      * This method makes a call to the database to retrieve the data and fills
