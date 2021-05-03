@@ -7,6 +7,7 @@ import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.integration.ItemDTO;
 import se.kth.iv1350.processSale.integration.ItemRegistry;
 import se.kth.iv1350.processSale.model.CashRegister;
+import se.kth.iv1350.processSale.model.Discount;
 import se.kth.iv1350.processSale.model.Payment;
 import se.kth.iv1350.processSale.model.Sale;
 import se.kth.iv1350.processSale.util.Amount;
@@ -21,6 +22,7 @@ public class Controller {
     private Printer printer;
     private CashRegister cashRegister;
     private Sale sale;
+    private Discount discount;
 
     
     /** 
@@ -95,7 +97,10 @@ public class Controller {
      * @return Amount the new price after the discount request
      */
     public Amount requestDiscount (CostumerDTO costumerDTO){
-        
+        this.discount = new Discount ();
+        sale.giveAccessToCostumerRegistry (integrations);
+        Amount updatedPrice = sale.discountRequest(costumerDTO, this.discount);
+        return updatedPrice;
     }
     
     /** 

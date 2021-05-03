@@ -9,7 +9,7 @@ public class Percentage {
     private double percent;
     private final String percentSymbol = "%";
     
-    /** /
+    /** 
      * Constructor for the class Percentage
      * 
      * @param percent 
@@ -17,14 +17,30 @@ public class Percentage {
     public Percentage (double percent){
         this.percent = percent;
     }
+
     
-    /** /
+    public double getPercentValue() {
+        return percent;
+    }
+    
+    /** 
      * toString method for the class Percentage
      * 
      * @return a String which describes a percentage
      */
+    @Override
     public String toString (){
         return String.valueOf(percent) + percentSymbol;
+    }
+    
+    /**
+     * Addition method for the class Percentage
+     * 
+     * @param percent to add to this percentage
+     * @return sum of the two percentages
+     */
+    public Percentage add(Percentage percent){
+        return new Percentage (this.percent + percent.getPercentValue());
     }
     
     

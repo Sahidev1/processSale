@@ -2,6 +2,7 @@ package se.kth.iv1350.processSale.view;
 
 import java.util.List;
 import se.kth.iv1350.processSale.controller.Controller;
+import se.kth.iv1350.processSale.integration.CostumerDTO;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.integration.ItemDTO;
 import se.kth.iv1350.processSale.model.Sale;
@@ -51,6 +52,11 @@ public class View {
         Item foundInvalidItem = contr.searchItem (searchedInvalidItem);
         System.out.println(foundInvalidItem + "\n");
         System.out.println (contr.getTotalPrice() + "\n");
+        
+        CostumerDTO costumerRequestingDiscount = new CostumerDTO ("John Doe",
+        "19880509", "DoeTown evergreenstreet 22", "2391000102");
+        contr.requestDiscount (costumerRequestingDiscount);
+       // System.out.println (updatedPrice);
         
         System.out.println(currentSale.getListOfItems());
     }   

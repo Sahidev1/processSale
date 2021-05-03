@@ -5,6 +5,7 @@ import se.kth.iv1350.processSale.integration.CostumerDTO;
 import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.util.Amount;
+import se.kth.iv1350.processSale.util.Percentage;
 
 /**
  * This is the class that handles the business logic
@@ -15,6 +16,7 @@ import se.kth.iv1350.processSale.util.Amount;
 public class Sale {
     private SaleInformation saleInformation;
     private Payment payment;
+    private Discount discount;
 
     
     /** 
@@ -44,8 +46,16 @@ public class Sale {
      * @param customerinformation a costumerDTO
      * @return an updated price based on the discount request
      */
-    public Amount discountRequest (CostumerDTO customerinformation){
-        
+    public Amount discountRequest (CostumerDTO customerinfo, Discount discount){
+        this.discount = discount;
+        Percentage discountPercent = this.discount.discountRequest(customerinfo, this);
+        return updatePriceBasedOnDiscount(discountPercent);
+    }
+
+    private Amount updatePriceBasedOnDiscount(Percentage discountPercent) {
+        Amount updatedPrice = new Amount (100 - discountPercent.getPercentValue()).
+        multiply(saleInformation.getTotalPrice());
+        return updatedPrice;
     }
     
     /**
@@ -110,8 +120,12 @@ public class Sale {
      * @param cashRegister a CashRegister
      */
     public void givePaymentParts (IntegrationCreator integrations,
-            CashRegister cashRegister){
+    CashRegister cashRegister){
         payment.givePaymentParts (integrations, cashRegister);
+    }
+    
+    public void giveAccessToCostumerRegistry (IntegrationCreator integrations){
+        discount.getAccessToCostumerRegistry (integrations);
     }
     
     /**

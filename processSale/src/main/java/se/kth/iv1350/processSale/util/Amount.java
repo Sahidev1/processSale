@@ -56,4 +56,14 @@ public class Amount {
     public Amount subtract (Amount amount){
         return new Amount(value - amount.getValue());
     }
+    
+    /**
+     * This method performs multiplication of two amount objects
+     * 
+     * @param amount to be multiplied with
+     * @return the product
+     */
+    public Amount multiply (Amount amount){
+        return new Amount(value * amount.getValue());
+    }
 }
