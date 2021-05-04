@@ -12,7 +12,7 @@ public class Item {
     private boolean isItemValid;
     private ItemDTO itemDTO;
     
-    /** /
+    /** 
      * Constructor for an Item object
      * 
      * @param itemDTO with immutable information about the item
@@ -45,7 +45,7 @@ public class Item {
     /**
      * Getter for the quantity
      * 
-     * @return a quantity describes by an integer
+     * @return a quantity described by an integer
      */
     public int getQuantity() {
         return quantity;
@@ -106,18 +106,23 @@ public class Item {
     }
     
     /** 
-     * This method increases the quantity of an item
+     * This method increments the quantity of an item
      */
     public void incrementQuantityOfItem (){
         quantity++;
     }
     
-    public void updateQuantityOfItem (Item item, int addedQuantity){
+    /**
+     * This method updates the quantity of an item
+     * 
+     * @param addedQuantity 
+     */
+    public void updateQuantityOfItem (int addedQuantity){
         quantity = quantity + addedQuantity;
     }
     
     /**
-     * This method compares to items with the items item identifiers
+     * This method compares two items using the itemIdentifiers of the items
      * 
      * @param item other item to compare to
      * @return boolean true if items are equal, else false

@@ -13,14 +13,14 @@ import se.kth.iv1350.processSale.util.Percentage;
 public class CostumerRegistry {
     private List<CostumerDTO> costumerData = new ArrayList<>();
     
-    /** /
+    /** 
      * Constructor for the class CostumerRegistry
      */
     public CostumerRegistry() {
         retrieveData ();
     }
     
-    /** /
+    /** 
      * This method searches for a costumer based on the given costumerDTO,
      * if there's a match it sets the correct base discount for the searched costumer
      * if there's no match it sets the base discount for the customer to 0 percent
@@ -69,8 +69,6 @@ public class CostumerRegistry {
         }
         return null;
     }
-    
-    
     
     /**
      * This method makes a call to the database to retrieve the data and fills

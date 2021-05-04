@@ -4,7 +4,7 @@ package se.kth.iv1350.processSale.util;
 /**
  * This class represent an amount of money
  * 
- * @author easy
+ * @author Ali Sahibi
  */
 public class Amount {
     private double value;
@@ -21,7 +21,7 @@ public class Amount {
     /** 
      * Getter method that retrieves the value of the amount
      * 
-     * @return 
+     * @return value as double
      */
     public double getValue() {
         return value;

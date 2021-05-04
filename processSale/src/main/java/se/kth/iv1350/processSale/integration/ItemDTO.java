@@ -14,7 +14,7 @@ public class ItemDTO {
     private Amount price;
     private Percentage itemVAT;
 
-    /** /
+    /** 
      * Constructor for ItemDTO 
      * 
      * @param itemIdentifier of the item
@@ -74,6 +74,12 @@ public class ItemDTO {
         return itemVAT;
     }
     
+    /**
+     * Returns decimal value of the percent VAT, so the VAT is 4% it returns 
+     * 0.04
+     * 
+     * @return decimal value of percentage
+     */
     public double getItemVATDecimalValue (){
         return itemVAT.getPercentValue() / 100;
     }

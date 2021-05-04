@@ -26,17 +26,20 @@ public class Discount {
         this.calculatedDiscount = new Percentage (0);
     }
 
+    /**
+     * Getter method for the calculated discount 
+     *
+     * @return calculated discount in percent
+     */
     public Percentage getCalculatedDiscount() {
         return calculatedDiscount;
     }
-    
-    
     
     /** 
      * This method handles a discount request
      * 
      * @param costumerDTO the costumer that is requesting a discount
-     * @return percent discount 
+     * @param sale the sale which is requesting a discount
      */
     public void discountRequest (CostumerDTO costumerDTO, Sale sale){
         this.sale = sale;
@@ -50,7 +53,7 @@ public class Discount {
      * @param integrations IntegrationsCreator object which holds getter for
      * costumerRegistry
      */
-    public void getAccessToCostumerRegistry (IntegrationCreator integrations){
+    public void giveAccessToCostumerRegistry (IntegrationCreator integrations){
         this.costumerRegistry = integrations.getCostumerRegistry();
     }
     
@@ -58,7 +61,7 @@ public class Discount {
      * This method calculates the discount
      * 
      * Observe that when the searchCostumer call is made to costumerRegistry
-     * that if there's a match the customerDTO is updated with the discount the
+     * that if there's a match the customerDTO is UPDATED with the discount the
      * costumer is entitled to
      * 
      * @return percent discount 
@@ -96,6 +99,4 @@ public class Discount {
         }
         return calculatedDiscount;
     }
-    
- 
 }

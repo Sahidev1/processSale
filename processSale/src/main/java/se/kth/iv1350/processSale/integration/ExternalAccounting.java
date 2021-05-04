@@ -10,14 +10,14 @@ import se.kth.iv1350.processSale.model.SaleInformation;
  */
 public class ExternalAccounting {
 
-    /** /
+    /** 
      * Constructor for the class ExternalAccounting
      */
     public ExternalAccounting() {
         
     }
     
-    /** /
+    /** 
      * This method gives information to the external accounting about the sale
      * 
      * @param saleInformation containing information about the sale
@@ -25,5 +25,4 @@ public class ExternalAccounting {
     public void updateAccounting (SaleInformation saleInformation){
         
     }
-    
 }

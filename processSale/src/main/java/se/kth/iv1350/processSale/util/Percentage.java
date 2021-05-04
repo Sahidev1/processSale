@@ -18,7 +18,11 @@ public class Percentage {
         this.percent = percent;
     }
 
-    
+    /**
+     * Getter method for percent
+     * 
+     * @return percent as double
+     */
     public double getPercentValue() {
         return percent;
     }
@@ -42,7 +46,4 @@ public class Percentage {
     public Percentage add(Percentage percent){
         return new Percentage (this.percent + percent.getPercentValue());
     }
-    
-    
-
 }

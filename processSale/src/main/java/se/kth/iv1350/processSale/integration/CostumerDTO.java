@@ -8,13 +8,13 @@ import se.kth.iv1350.processSale.util.Percentage;
  * @author Ali Sahibi
  */
 public class CostumerDTO {
-    private String name;
-    private String dateOfBirth;
-    private String adress;
-    private String socialSecurityNumber;
+    private final String name;
+    private final String dateOfBirth;
+    private final String adress;
+    private final String socialSecurityNumber;
     private Percentage baseDiscountForCostumer;
     
-    /** /
+    /** 
      * Constructor for the CostumerDTO class
      * 
      * @param name of the Costumer

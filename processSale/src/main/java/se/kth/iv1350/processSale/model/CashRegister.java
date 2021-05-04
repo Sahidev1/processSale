@@ -36,5 +36,4 @@ public class CashRegister {
     private void retrieveBalance (){
         this.balance = new Amount (2511);
     }
-
 }

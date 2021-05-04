@@ -8,7 +8,6 @@ import se.kth.iv1350.processSale.integration.ItemDTO;
 import se.kth.iv1350.processSale.integration.ItemRegistry;
 import se.kth.iv1350.processSale.model.CashRegister;
 import se.kth.iv1350.processSale.model.Discount;
-import se.kth.iv1350.processSale.model.Payment;
 import se.kth.iv1350.processSale.model.Sale;
 import se.kth.iv1350.processSale.util.Amount;
 
@@ -39,6 +38,8 @@ public class Controller {
     
     /** 
      * This method starts a new sale
+     * It also sends references of integrations, cashRegister, printer 
+     * to the payment object
      * 
      * @return a reference to the sale in controller
      */
@@ -55,17 +56,7 @@ public class Controller {
      * @return Item that was found in the database
      */
     public Item searchItem (ItemDTO searchedItem){
-        ItemRegistry itemReg = integrations.getItemRegistry ();
-        Item foundItem = itemReg.searchItem(searchedItem);
-        sale.addItemToSale(foundItem);
-        
-        if (foundItem.getIsItemValid()){
-            if (sale.hasItemAlreadyBeenAdded(foundItem)){
-                return sale.getItemFromTheList(foundItem);
-            }
-        }
-        
-        return foundItem;
+        return searchItem (searchedItem, 1);
     }
     
     /** 
@@ -92,13 +83,14 @@ public class Controller {
     
     /** 
      * This method is used when there is a discount request
+     * A new discount object is created that gets a reference to integrations
      * 
      * @param costumerDTO is a data of a costumers personal details
      * @return Amount the new price after the discount request
      */
     public Amount requestDiscount (CostumerDTO costumerDTO){
         this.discount = new Discount ();
-        discount.getAccessToCostumerRegistry (integrations);
+        discount.giveAccessToCostumerRegistry (integrations);
         Amount updatedPrice = sale.discountRequest(costumerDTO, this.discount);
         return updatedPrice;
     }
@@ -113,10 +105,9 @@ public class Controller {
     }
     
     /** 
-     * This method is called to deal with the payment of sale
+     * This method is called to deal with the payment of the sale
      * 
      * @param paymentAmount the amount to pay for the sale
-     * @return a payment object which holds information about the payment
      */
     public void makePayment (Amount paymentAmount){
         sale.makePayment(paymentAmount);

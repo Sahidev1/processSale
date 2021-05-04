@@ -1,6 +1,5 @@
 package se.kth.iv1350.processSale.view;
 
-import java.util.List;
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.integration.CostumerDTO;
 import se.kth.iv1350.processSale.integration.Item;
@@ -15,7 +14,8 @@ import se.kth.iv1350.processSale.util.Amount;
  */
 public class View {
     private Controller contr;
-    /** /
+    
+    /** 
      * Constructor for the class View
      * 
      * @param contr Controller object used as argument 
@@ -56,11 +56,10 @@ public class View {
         CostumerDTO costumerRequestingDiscount = new CostumerDTO ("John Doe",
         "19880509", "DoeTown evergreenstreet 22", "2391000102");
         Amount updatedPrice = contr.requestDiscount (costumerRequestingDiscount);
+        System.out.println ("Discountrequest was made");
         System.out.println ("Total cost: " + updatedPrice + "\n");
         
         Amount paymentFromCostumer = new Amount (600);
         contr.makePayment(paymentFromCostumer);
-        
-        
     }   
 }

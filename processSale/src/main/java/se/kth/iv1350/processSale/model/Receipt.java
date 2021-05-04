@@ -38,6 +38,11 @@ public class Receipt {
         this.printer = printer;
     }
     
+    /**
+     * This method creates a string with all the information about the sale
+     * 
+     * @return string with sale information
+     */
     @Override
     public String toString (){
         StringBuilder receiptString = new StringBuilder ();
@@ -46,6 +51,7 @@ public class Receipt {
         Date timeOfSale = saleInfo.getTimeOfSale();
         Store store = saleInfo.getStore();
         
+        newLine (receiptString);
         receiptString.append("Time of sale: ");
         receiptString.append(timeOfSale);
         newLine (receiptString);
@@ -68,7 +74,7 @@ public class Receipt {
         newLine (receiptString);
         receiptString.append(saleInfo.saleItemsToString());
         
-        receiptString.append("---------------- Sale data "
+        receiptString.append("---------------- Sale info "
                 + "----------------");
         newLine (receiptString);
         newLine (receiptString);
@@ -79,13 +85,12 @@ public class Receipt {
         receiptString.append("Costumer payment: ").append(saleInfo.getPaymentAmount());
         newLine (receiptString);
         receiptString.append("Change to costumer: ").append(payment.getChange());
+        newLine (receiptString);
         
         return receiptString.toString();
     }
     
     private void newLine (StringBuilder string){
         string.append("\n");
-    }
-    
-    
+    }  
 }

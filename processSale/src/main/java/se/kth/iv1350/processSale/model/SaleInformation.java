@@ -41,23 +41,41 @@ public class SaleInformation {
         return totalPrice;
     }
 
+    /**
+     * Getter method for the amount payed by the costumer
+     * 
+     * @return amount paid by costumer
+     */
     public Amount getPaymentAmount() {
         return paymentAmount;
     }
-
+    
+    /**
+     * Getter method for how much was paid in VAT
+     * 
+     * @return amount paid in VAT
+     */
     public Amount getPaidInVAT() {
         return paidInVAT;
     }
 
+    /**
+     * Getter method for the time of sale
+     * 
+     * @return date object with time and date of sale
+     */
     public Date getTimeOfSale() {
         return timeOfSale;
     }
-
+    
+    /**
+     * Getter method for the store
+     * 
+     * @return the store object
+     */
     public Store getStore() {
         return store;
     }
-    
-    
     
     /**
      * Getter method for the list of items
@@ -69,7 +87,7 @@ public class SaleInformation {
     }
     
     /**
-     * This method searches an item from List of items using the information
+     * This method searches an item from List of items in sale using the information
      * from another item outside of the list
      * 
      * @param item which contains item identifier
@@ -87,7 +105,7 @@ public class SaleInformation {
     /**
      * This method checks wether an item already is in the List of items
      * 
-     * @param item is the item that is getting check
+     * @param item is the item that is getting checked
      * @return true if it is in the list, else false
      */
     public boolean hasItemAlreadyBeenAdded (Item item){
@@ -100,7 +118,8 @@ public class SaleInformation {
     }
     
     /**
-     * This method increment the quantity of an item
+     * This method increments the quantity of an item in the sale and
+     * updates the total price
      * 
      * @param item to increment quantity of
      */
@@ -110,8 +129,16 @@ public class SaleInformation {
         updateTotalPrice (item, quantity);
     }
     
+    /**
+     * This method updates the quantity of an item in the sale and update the
+     * total price
+     * 
+     * @param item
+     * @param addedQuantity 
+     */
     public void updateQuantityOfItem (Item item, int addedQuantity){
-        item.updateQuantityOfItem (item, addedQuantity);
+        item.updateQuantityOfItem (addedQuantity);
+        updateTotalPrice (item, addedQuantity);
     }
     
     /** 
@@ -134,6 +161,11 @@ public class SaleInformation {
         updateTotalPrice (item, quantity);
     }
     
+    /**
+     * This method returns a string with all the items in the sale
+     * 
+     * @return all the items in the sale as a string
+     */
     public String saleItemsToString (){
         StringBuilder saleItemsString = new StringBuilder ();
         for (Item itemInList : items){
@@ -161,7 +193,6 @@ public class SaleInformation {
         return new Amount (1.00 - (discount.getPercentValue() / 100));
     }
         
-    
     /**
      * This method calculates the change to give back to the costumer
      * 
@@ -175,7 +206,8 @@ public class SaleInformation {
      * This method updates the total price when an item has been added to
      * the sale. ItemVAT is added to the calculation
      * 
-     * @param item that is added to the sale 
+     * @param item the item added to the sale
+     * @param quantity the quantity of the item
      */
     private void updateTotalPrice (Item item, int quantity){
         totalPrice = totalPrice.add(new Amount(item.getPrice().getValue() * (1 +
@@ -183,7 +215,5 @@ public class SaleInformation {
         
         paidInVAT = paidInVAT.add(new Amount(item.getPrice().getValue() * 
         item.getItemDTO().getItemVATDecimalValue() * quantity));
-    }
-    
-    
+    } 
 }

@@ -25,14 +25,18 @@ public class Payment {
         this.receipt = new Receipt();
     }
     
+    /**
+     * Getter method for the amount of change during the sale process
+     * 
+     * @return the change
+     */
     public Amount getChange (){
         return  change;
     }
     
     /**
-     * This class updates the payment information 
+     * This method updates the payment information 
      * 
-     * @param saleInformation is updated
      */
     public void updateExternalSystems (){
         ExternalInventory inventory = integrations.getExternalInventory();
@@ -43,10 +47,18 @@ public class Payment {
         calculateChange();  
     }
     
+    /**
+     * This method updates the receipt based on the data in this payment object
+     */
     public void updateReceipt (){
         receipt.updateReceipt(this);
     }
     
+    /**
+     * Getter method for saleInformation
+     * 
+     * @return saleInformation 
+     */
     public SaleInformation getSaleInformation (){
         return this.saleInformation;
     }
@@ -57,7 +69,7 @@ public class Payment {
      * 
      * @param integrations gives access to integration classes
      * @param cashRegister gives access to the cash register
-     * @param printer
+     * @param printer gives receipt object access to it
      */
     public void givePaymentParts (IntegrationCreator integrations,
     CashRegister cashRegister, Printer printer){
@@ -66,6 +78,11 @@ public class Payment {
         receipt.accessPrinter(printer);
     }
     
+    /**
+     * This method gives the payment object access to the saleInformation object
+     * 
+     * @param saleInformation 
+     */
     public void giveSaleInformation (SaleInformation saleInformation){
         this.saleInformation = saleInformation;
     }

@@ -19,7 +19,6 @@ public class Sale {
     private Payment payment;
     private Discount discount;
 
-    
     /** 
      * Constructor method for the class Sale
      */
@@ -37,6 +36,11 @@ public class Sale {
         return saleInformation.getTotalPrice();
     }
     
+    /**
+     * This method gives access to the list with the items in the sale
+     * 
+     * @return list with items
+     */
     public List<Item> getListOfItems (){
         return saleInformation.getListOfItems();
     }
@@ -44,7 +48,8 @@ public class Sale {
     /**
      * This method handles discount requests
      * 
-     * @param customerinformation a costumerDTO
+     * @param customerinfo customer information
+     * @param discount a reference to a discount object
      * @return an updated price based on the discount request
      */
     public Amount discountRequest (CostumerDTO customerinfo, Discount discount){
@@ -67,7 +72,8 @@ public class Sale {
     }
     
     /**
-     * This method adds an item to the sale
+     * This method adds an item to the sale if it hasn't already been added
+     * else it just updates the quantity of the item already in the sale
      * 
      * @param foundItem the item to be added
      */
@@ -84,7 +90,8 @@ public class Sale {
     }
     
     /**
-     * This method adds a quantity of an item to the sale
+     * This method adds a quantity of an item to the sale if it hasn't already
+     * been added else it just updates the quantity of the item already in the sale
      * 
      * @param foundItem them item to be added
      * @param quantity the quantity of the item to be added
@@ -116,7 +123,7 @@ public class Sale {
      * 
      * @param integrations an IntegrationsCreator
      * @param cashRegister a CashRegister
-     * @param printer
+     * @param printer the printer object
      */
     public void givePaymentParts (IntegrationCreator integrations,
     CashRegister cashRegister, Printer printer){
@@ -146,6 +153,5 @@ public class Sale {
 
     private void updateQuantityOfItem(Item foundItem, int addedQuantity) {
         saleInformation.updateQuantityOfItem(foundItem, addedQuantity);
-    }
-       
+    }    
 }

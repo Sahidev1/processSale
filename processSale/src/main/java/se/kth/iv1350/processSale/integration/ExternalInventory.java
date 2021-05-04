@@ -10,14 +10,14 @@ import se.kth.iv1350.processSale.model.SaleInformation;
  */
 public class ExternalInventory {
     
-    /** /
+    /** 
      * Constructor for the class ExternalInventory
      */
     public ExternalInventory() {
         
     }
     
-    /** /
+    /** 
      * This method updates the external inventory according to the sale
      * information
      * 
