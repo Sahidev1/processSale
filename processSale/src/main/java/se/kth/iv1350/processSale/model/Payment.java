@@ -14,7 +14,7 @@ import se.kth.iv1350.processSale.util.Amount;
 public class Payment {
     private Amount change;
     private SaleInformation saleInformation;
-    private Receipt receipt;
+    private final Receipt receipt;
     private IntegrationCreator integrations;
     private CashRegister cashRegister;
     

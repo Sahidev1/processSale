@@ -7,10 +7,10 @@ package se.kth.iv1350.processSale.integration;
  * @author Ali Sahibi
  */
 public class IntegrationCreator {
-    private ExternalInventory externalInventory;
-    private ExternalAccounting externalAccounting;
-    private CostumerRegistry costumerRegistry;
-    private ItemRegistry itemRegistry;
+    private final ExternalInventory externalInventory;
+    private final ExternalAccounting externalAccounting;
+    private final CostumerRegistry costumerRegistry;
+    private final ItemRegistry itemRegistry;
 
     /** 
      * Constructor for the class IntegrationCreator

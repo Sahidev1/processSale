@@ -12,25 +12,13 @@ import se.kth.iv1350.processSale.util.Percentage;
  * @author Ali Sahibi
  */
 public class ItemRegistry {
-    private List<Item> itemData = new ArrayList<>();
+    private final List<Item> itemData = new ArrayList<>();
     
     /**
      * Constructor for the class ItemRegistry
      */
     public ItemRegistry (){
         retrieveData ();
-    }
-    
-    /** 
-     * This method makes a call to the database to search for an item
-     * if a match is found it returns a valid item, else it returns
-     * an invalid Item with doesItMatch field on the item set to false
-     * 
-     * @param itemDTO the item must match the itemDTO given as argument
-     * @return item object is returned
-     */
-    public Item searchItem (ItemDTO itemDTO){
-        return searchItem (itemDTO, 1);
     }
     
     /** 
@@ -56,6 +44,18 @@ public class ItemRegistry {
         
         foundItem = createInvalidItem();
         return foundItem;
+    }
+    
+    /** 
+     * This method makes a call to the database to search for an item
+     * if a match is found it returns a valid item, else it returns
+     * an invalid Item with doesItMatch field on the item set to false
+     * 
+     * @param itemDTO the item must match the itemDTO given as argument
+     * @return item object is returned
+     */
+    public Item searchItem (ItemDTO itemDTO){
+        return searchItem (itemDTO, 1);
     }
     
     /**

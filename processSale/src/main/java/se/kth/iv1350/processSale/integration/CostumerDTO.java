@@ -68,7 +68,7 @@ public class CostumerDTO {
     /**
      * Getter method for the address of the costumer
      * 
-     * @return 
+     * @return address of costumer
      */
     public String getAdress() {
         return adress;

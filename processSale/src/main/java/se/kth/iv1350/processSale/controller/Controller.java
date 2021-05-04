@@ -17,9 +17,9 @@ import se.kth.iv1350.processSale.util.Amount;
  * @author Ali Sahibi
  */
 public class Controller {
-    private IntegrationCreator integrations;
-    private Printer printer;
-    private CashRegister cashRegister;
+    private final IntegrationCreator integrations;
+    private final Printer printer;
+    private final CashRegister cashRegister;
     private Sale sale;
     private Discount discount;
 

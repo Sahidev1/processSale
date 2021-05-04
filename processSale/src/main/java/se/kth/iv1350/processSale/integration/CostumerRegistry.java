@@ -11,7 +11,7 @@ import se.kth.iv1350.processSale.util.Percentage;
  * @author Ali Sahibi
  */
 public class CostumerRegistry {
-    private List<CostumerDTO> costumerData = new ArrayList<>();
+    private final List<CostumerDTO> costumerData = new ArrayList<>();
     
     /** 
      * Constructor for the class CostumerRegistry

@@ -15,8 +15,8 @@ import se.kth.iv1350.processSale.util.Percentage;
  * @author Ali Sahibi
  */
 public class Sale {
-    private SaleInformation saleInformation;
-    private Payment payment;
+    private final SaleInformation saleInformation;
+    private final Payment payment;
     private Discount discount;
 
     /** 

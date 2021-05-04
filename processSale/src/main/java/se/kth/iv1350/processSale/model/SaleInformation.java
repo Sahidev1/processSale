@@ -13,11 +13,11 @@ import se.kth.iv1350.processSale.util.Percentage;
  * @author Ali Sahibi
  */
 public class SaleInformation {
-    private List<Item> items;
+    private final List<Item> items;
     private Amount totalPrice;
     private Amount paymentAmount;
     private Amount paidInVAT;
-    private Date timeOfSale;
+    private final Date timeOfSale;
     private final Store store;
     
     /** 
@@ -215,5 +215,6 @@ public class SaleInformation {
         
         paidInVAT = paidInVAT.add(new Amount(item.getPrice().getValue() * 
         item.getItemDTO().getItemVATDecimalValue() * quantity));
-    } 
+    }
+    
 }
