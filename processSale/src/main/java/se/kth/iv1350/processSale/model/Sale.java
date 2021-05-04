@@ -61,7 +61,7 @@ public class Sale {
      */
     public void makePayment (Amount paymentAmount){
         saleInformation.addPayment(paymentAmount);
-        payment.getSaleInformation (saleInformation);
+        payment.giveSaleInformation (saleInformation);
         payment.updateExternalSystems();
         payment.updateReceipt ();
     }

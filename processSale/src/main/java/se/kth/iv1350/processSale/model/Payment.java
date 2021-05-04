@@ -25,6 +25,10 @@ public class Payment {
         this.receipt = new Receipt();
     }
     
+    public Amount getChange (){
+        return  change;
+    }
+    
     /**
      * This class updates the payment information 
      * 
@@ -40,7 +44,11 @@ public class Payment {
     }
     
     public void updateReceipt (){
-        receipt.updateReceipt(saleInformation);
+        receipt.updateReceipt(this);
+    }
+    
+    public SaleInformation getSaleInformation (){
+        return this.saleInformation;
     }
     
     /**
@@ -58,7 +66,7 @@ public class Payment {
         receipt.accessPrinter(printer);
     }
     
-    public void getSaleInformation (SaleInformation saleInformation){
+    public void giveSaleInformation (SaleInformation saleInformation){
         this.saleInformation = saleInformation;
     }
     

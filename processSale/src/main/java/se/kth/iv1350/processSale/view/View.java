@@ -58,9 +58,9 @@ public class View {
         Amount updatedPrice = contr.requestDiscount (costumerRequestingDiscount);
         System.out.println ("Total cost: " + updatedPrice + "\n");
         
-        Amount paymentFromCostumer = new Amount (500);
+        Amount paymentFromCostumer = new Amount (600);
         contr.makePayment(paymentFromCostumer);
         
-        System.out.println(currentSale.getListOfItems());
+        
     }   
 }

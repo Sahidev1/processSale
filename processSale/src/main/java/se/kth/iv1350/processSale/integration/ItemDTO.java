@@ -74,6 +74,10 @@ public class ItemDTO {
         return itemVAT;
     }
     
+    public double getItemVATDecimalValue (){
+        return itemVAT.getPercentValue() / 100;
+    }
+            
     /** 
      * toString method for itemDTO
      * 

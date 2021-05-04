@@ -22,7 +22,7 @@ public class Printer {
      * @param receipt the printed object is a receipt
      */
     public void printReceipt (Receipt receipt){
-        
+        System.out.println(receipt);
     }
     
 }

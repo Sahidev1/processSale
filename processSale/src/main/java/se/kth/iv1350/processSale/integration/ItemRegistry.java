@@ -90,19 +90,19 @@ public class ItemRegistry {
      */
     private void retrieveData (){
         Amount priceOfItem0 = new Amount (22);
-        Percentage VATofItem0 = new Percentage (8);
+        Percentage VATofItem0 = new Percentage (6);
         ItemDTO itemDTO0 = new ItemDTO ("AX356235", "Apple", priceOfItem0, VATofItem0);
         Item apple = new Item (itemDTO0);
         itemData.add(apple);
         
         Amount priceOfItem1 = new Amount (34);
-        Percentage VATofItem1 = new Percentage (9);
+        Percentage VATofItem1 = new Percentage (12);
         ItemDTO itemDTO1 = new ItemDTO ("AX531319", "Sandwich", priceOfItem1, VATofItem1);
         Item sandwich = new Item (itemDTO1);
         itemData.add(sandwich);
         
         Amount priceOfItem2 = new Amount (56);
-        Percentage VATofItem2 = new Percentage (11);
+        Percentage VATofItem2 = new Percentage (25);
         ItemDTO itemDTO2 = new ItemDTO ("BX029510", "Pumpkin", priceOfItem2, VATofItem2);
         Item pumpkin = new Item (itemDTO2);
         itemData.add(pumpkin);

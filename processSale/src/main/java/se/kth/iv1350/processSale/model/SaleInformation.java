@@ -1,6 +1,7 @@
 package se.kth.iv1350.processSale.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.util.Amount;
@@ -15,6 +16,9 @@ public class SaleInformation {
     private List<Item> items;
     private Amount totalPrice;
     private Amount paymentAmount;
+    private Amount paidInVAT;
+    private Date timeOfSale;
+    private final Store store;
     
     /** 
      * Constructor for the class SaleInformation
@@ -22,7 +26,10 @@ public class SaleInformation {
     public SaleInformation (){
         this.items = new ArrayList<>();
         this.totalPrice = new Amount(0);
+        this.paidInVAT = new Amount(0);
         this.paymentAmount = new Amount (0);
+        this.timeOfSale = new Date();
+        this.store = new Store();
     }
     
     /** 
@@ -36,6 +43,18 @@ public class SaleInformation {
 
     public Amount getPaymentAmount() {
         return paymentAmount;
+    }
+
+    public Amount getPaidInVAT() {
+        return paidInVAT;
+    }
+
+    public Date getTimeOfSale() {
+        return timeOfSale;
+    }
+
+    public Store getStore() {
+        return store;
     }
     
     
@@ -115,6 +134,15 @@ public class SaleInformation {
         updateTotalPrice (item, quantity);
     }
     
+    public String saleItemsToString (){
+        StringBuilder saleItemsString = new StringBuilder ();
+        for (Item itemInList : items){
+            saleItemsString.append (itemInList);
+            saleItemsString.append ("\n");
+        }
+        return saleItemsString.toString();
+    }
+    
     /**
      * Updates the total price based on the discount for the costumer
      * 
@@ -126,10 +154,13 @@ public class SaleInformation {
     }
     
     private Amount calculateTotalPriceBasedOnDiscount (Percentage discount){
-        return new Amount (1.00 - (discount.getPercentValue() / 100)).
-        multiply(totalPrice);
+        return discountFactor(discount).multiply(totalPrice);
     }
     
+    private Amount discountFactor (Percentage discount){
+        return new Amount (1.00 - (discount.getPercentValue() / 100));
+    }
+        
     
     /**
      * This method calculates the change to give back to the costumer
@@ -142,12 +173,17 @@ public class SaleInformation {
     
     /**
      * This method updates the total price when an item has been added to
-     * the sale
+     * the sale. ItemVAT is added to the calculation
      * 
      * @param item that is added to the sale 
      */
     private void updateTotalPrice (Item item, int quantity){
-        totalPrice = totalPrice.add(new Amount(item.getPrice().getValue() * quantity));
+        totalPrice = totalPrice.add(new Amount(item.getPrice().getValue() * (1 +
+        item.getItemDTO().getItemVATDecimalValue()) * quantity));
+        
+        paidInVAT = paidInVAT.add(new Amount(item.getPrice().getValue() * 
+        item.getItemDTO().getItemVATDecimalValue() * quantity));
     }
+    
     
 }
