@@ -160,19 +160,43 @@ public class SaleTest {
     }
     
     @Test 
-    public void testGetPaymentPartsDoesPaymentGiveParts () 
-    throws Exception{
+    public void testGivePaymentPartsDoesPaymentGetParts (){
         IntegrationCreator integrations = new IntegrationCreator();
-        CashRegister cashRegister = new CashRegister ();
-        Printer printer = null;
+        CashRegister cashRegister = new CashRegister();
+        Printer printer = new Printer();
         sale.givePaymentParts(integrations, cashRegister, printer);
         
         try {
             sale.makePayment(new Amount (33));
         }
-        catch (Exception Exception){
-            fail("fail");
-        }
+        catch (NullPointerException e){
+            fail("Payment object did not get the reference to the objects"
+                    + "it needed to perform the operation in the try block");
+        }  
+    }
+    
+    @Test
+    public void testDiscountRequest (){
+        IntegrationCreator integrations = new IntegrationCreator();
+        Discount discountObj = new Discount ();
         
+        Amount priceOfItem0 = new Amount (22);
+        Percentage VATofItem0 = new Percentage (6);
+        ItemDTO itemDTO0 = new ItemDTO ("AX356235", "Apple", priceOfItem0, VATofItem0);
+        Item itemInRegistry = new Item (itemDTO0);
+        itemInRegistry.setQuantityOfItem(12);
+        
+        sale.addItemToSale(itemInRegistry);
+        discountObj.giveAccessToCostumerRegistry(integrations);
+        Amount discountamt = sale.discountRequest(costumer, discountObj);
+        
+        double costumerDiscount = costumer.getBaseDiscountForCustomer().getPercentValue() + 
+                2; // 2 percent discount is added for price above 100
+        double expValue = priceOfItem0.getValue() * ( 1 + 
+                (VATofItem0.getPercentValue() / 100)) * itemInRegistry.getQuantity() * 
+                (1 - costumerDiscount / 100);
+        
+        boolean condition = expValue == discountamt.getValue();
+        assertTrue (condition,"The returned price is incorrect");
     }
 }

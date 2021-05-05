@@ -61,11 +61,19 @@ public class ItemRegistryTest {
     @Test
     public void testSearchItemDTODoesItReturnAnInvalidItemIfNoMatchInRegistry (){
         int quantity = 1;
-        String itemIdentifierOfINVALIDitem = invalidItemDTO.getItemIdentifier();
         Item foundItem = itemRegistry.searchItem(invalidItemDTO, quantity);
         boolean condition = foundItem.getIsItemValid();
         assertFalse (condition, "The method did not return an invalid item" + 
         " for searching an item that did not exist");
+    }
+    
+    @Test
+    public void testSearchItemDTODoesItReturnAnItemWithCorrectQuantity (){
+        int quantity = 5;
+        Item foundItem = itemRegistry.searchItem (validItemDTO, quantity);
+        int quantityOfFoundItem = foundItem.getQuantity();
+        boolean condition = quantity == quantityOfFoundItem;
+        assertTrue (condition, "The item does not have the correct quantity");
     }
     
 }
