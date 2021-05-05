@@ -6,7 +6,6 @@ import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.util.Amount;
-import se.kth.iv1350.processSale.util.Percentage;
 
 /**
  * This is the class that handles the business logic
@@ -54,8 +53,8 @@ public class Sale {
      */
     public Amount discountRequest (CostumerDTO customerinfo, Discount discount){
         this.discount = discount;
-        this.discount.discountRequest(customerinfo, this);
-        saleInformation.updateTotalPriceBasedOnDiscount (this.discount);
+        discount.discountRequest(customerinfo, this);
+        saleInformation.updateTotalPriceBasedOnDiscount (discount);
         return saleInformation.getTotalPrice();
     }
    
@@ -74,6 +73,7 @@ public class Sale {
     /**
      * This method adds an item to the sale if it hasn't already been added
      * else it just updates the quantity of the item already in the sale
+     * if the item is invalid it is not added to the sale at all
      * 
      * @param foundItem the item to be added
      */
@@ -92,6 +92,7 @@ public class Sale {
     /**
      * This method adds a quantity of an item to the sale if it hasn't already
      * been added else it just updates the quantity of the item already in the sale
+     * if the item is invalid it is not added to the sale at all
      * 
      * @param foundItem them item to be added
      * @param quantity the quantity of the item to be added
