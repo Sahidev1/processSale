@@ -55,7 +55,8 @@ public class ItemRegistry {
      * @return item object is returned
      */
     public Item searchItem (ItemDTO itemDTO){
-        return searchItem (itemDTO, 1);
+        int quantityOfOne = 1;
+        return searchItem (itemDTO, quantityOfOne);
     }
     
     /**
@@ -71,7 +72,7 @@ public class ItemRegistry {
     }
     
     /**
-     * This method creates an Item with doesItMatch field set to false
+     * This method creates an Item with isItemValid field set to false
      * 
      * @return an invalid item
      */

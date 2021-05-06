@@ -35,7 +35,7 @@ public class Payment {
     }
     
     /**
-     * This method updates the payment information 
+     * This method updates all the external Systems
      * 
      */
     public void updateExternalSystems (){

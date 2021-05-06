@@ -5,6 +5,8 @@
  */
 package se.kth.iv1350.processSale.model;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -167,7 +169,16 @@ public class SaleTest {
         sale.givePaymentParts(integrations, cashRegister, printer);
         
         try {
+            PrintStream sysOutStream = System.out;
+            System.setOut( new PrintStream( new OutputStream(){
+                public void write (int integer){
+                    // No op, just to block System.out call from method below
+                }
+            }));
+            
             sale.makePayment(new Amount (33));
+            
+            System.setOut(sysOutStream);
         }
         catch (NullPointerException e){
             fail("Payment object did not get the reference to the objects"
@@ -198,5 +209,32 @@ public class SaleTest {
         
         boolean condition = expValue == discountamt.getValue();
         assertTrue (condition,"The returned price is incorrect");
+    }
+    
+    @Test
+    public void testMakePayment (){
+        IntegrationCreator integrations = new IntegrationCreator();
+        CashRegister cashRegister = new CashRegister();
+        Printer printer = new Printer();
+        sale.givePaymentParts(integrations, cashRegister, printer);    
+        
+        Amount paymentamt = new Amount(750);
+        
+        PrintStream sysOutStream = System.out;
+        System.setOut( new PrintStream( new OutputStream(){
+            public void write (int integer){
+                // No op, just to block System.out call from method below
+            }
+        }));
+
+        sale.makePayment(paymentamt);
+
+        System.setOut(sysOutStream);
+        
+        Amount expValue = paymentamt;
+        Amount valueFromSale = sale.getPaymentAmount();
+        boolean condition = expValue.getValue() == valueFromSale.getValue();
+        assertTrue (condition, "Sale object returned an payment amount that "
+                + "is different then what was put in");
     }
 }

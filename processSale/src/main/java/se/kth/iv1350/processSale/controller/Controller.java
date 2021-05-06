@@ -50,18 +50,10 @@ public class Controller {
     }
     
     /** 
-     * This method searches for an item in the database
-     * 
-     * @param searchedItem an itemDTO object
-     * @return Item that was found in the database
-     */
-    public Item searchItem (ItemDTO searchedItem){
-        return searchItem (searchedItem, 1);
-    }
-    
-    /** 
      * This method searches for an item in the the database
-     * and also holds the quantity of the searched item
+     * and also holds the quantity of the searched item,
+     * if the item has already been added it returns that item from the list of 
+     * items in sale
      * 
      * @param searchedItem an itemDTO object
      * @param quantity quantity of the itemDTO type searched
@@ -80,6 +72,19 @@ public class Controller {
         
         return foundItem;
     }
+    
+    /** 
+     * This method searches for an item in the database
+     * if the item has already been added it returns that item from the list of 
+     * items in sale  
+     * 
+     * @param searchedItem an itemDTO object
+     * @return Item that was found in the database
+     */
+    public Item searchItem (ItemDTO searchedItem){
+        int quantityOfOne = 1;
+        return searchItem (searchedItem, quantityOfOne);
+    }    
     
     /** 
      * This method is used when there is a discount request

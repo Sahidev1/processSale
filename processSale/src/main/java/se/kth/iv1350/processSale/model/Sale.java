@@ -36,6 +36,15 @@ public class Sale {
     }
     
     /**
+     * Getter method for the amount paid by the costumer
+     * 
+     * @return amount paid by costumer
+     */
+    public Amount getPaymentAmount (){
+        return saleInformation.getPaymentAmount();
+    }
+    
+    /**
      * This method gives access to the list with the items in the sale
      * 
      * @return list with items
@@ -143,7 +152,7 @@ public class Sale {
     }
     
     /**
-     * This method retrieves the item in the list that is searched for
+     * This method retrieves the item in the list that it is searched for
      * 
      * @param item that is to be retrieved
      * @return the found item, if no items is found it returns null

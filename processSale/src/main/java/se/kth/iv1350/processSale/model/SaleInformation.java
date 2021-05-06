@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.model;
 
+import se.kth.iv1350.processSale.integration.StoreDTO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,7 @@ public class SaleInformation {
     private Amount paymentAmount;
     private Amount paidInVAT;
     private final Date timeOfSale;
-    private final Store store;
+    private final StoreDTO store;
     
     /** 
      * Constructor for the class SaleInformation
@@ -29,7 +30,7 @@ public class SaleInformation {
         this.paidInVAT = new Amount(0);
         this.paymentAmount = new Amount (0);
         this.timeOfSale = new Date();
-        this.store = new Store();
+        this.store = new StoreDTO();
     }
     
     /** 
@@ -73,7 +74,7 @@ public class SaleInformation {
      * 
      * @return the store object
      */
-    public Store getStore() {
+    public StoreDTO getStore() {
         return store;
     }
     
@@ -204,7 +205,7 @@ public class SaleInformation {
     
     /**
      * This method updates the total price when an item has been added to
-     * the sale. ItemVAT is added to the calculation
+     * the sale. The method also updates how much of the total price is VAT
      * 
      * @param item the item added to the sale
      * @param quantity the quantity of the item

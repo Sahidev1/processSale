@@ -1,4 +1,4 @@
-package se.kth.iv1350.processSale.model;
+package se.kth.iv1350.processSale.integration;
 
 /**
  * This class holds all the information about the retail store where the
@@ -6,7 +6,7 @@ package se.kth.iv1350.processSale.model;
  * 
  * @author Ali Sahibi
  */
-public class Store {
+public class StoreDTO {
     private final String storeName = "MaxiStore";
     private final String streetAdress = "CoolStreet 22";
     private final String city = "Townville";

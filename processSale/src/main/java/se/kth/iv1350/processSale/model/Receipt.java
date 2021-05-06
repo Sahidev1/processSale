@@ -1,5 +1,6 @@
 package se.kth.iv1350.processSale.model;
 
+import se.kth.iv1350.processSale.integration.StoreDTO;
 import java.util.Date;
 import se.kth.iv1350.processSale.integration.Printer;
 
@@ -49,7 +50,7 @@ public class Receipt {
         
         SaleInformation saleInfo = payment.getSaleInformation();
         Date timeOfSale = saleInfo.getTimeOfSale();
-        Store store = saleInfo.getStore();
+        StoreDTO store = saleInfo.getStore();
         
         newLine (receiptString);
         receiptString.append("Time of sale: ");

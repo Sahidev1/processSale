@@ -50,7 +50,7 @@ public class ItemTest {
     }
     
     @Test
-    public void testEqualsObjectAreNotEqual (){
+    public void testEqualsItemAreNotEqual (){
         boolean expResult = false;
         boolean result = validItem0.equals(validItem1);
         assertEquals (expResult, result, "Test is saying that two different"
