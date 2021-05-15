@@ -31,7 +31,7 @@ public class Discount {
      *
      * @return calculated discount in percent
      */
-    public Percentage getCalculatedDiscount() {
+    Percentage getCalculatedDiscount() {
         return calculatedDiscount;
     }
     
@@ -41,7 +41,7 @@ public class Discount {
      * @param costumerDTO the costumer that is requesting a discount
      * @param sale the sale which is requesting a discount
      */
-    public void discountRequest (CostumerDTO costumerDTO, Sale sale){
+    void discountRequest (CostumerDTO costumerDTO, Sale sale){
         this.sale = sale;
         this.costumerDTO = costumerDTO;
         calculatedDiscount = calculateDiscount();

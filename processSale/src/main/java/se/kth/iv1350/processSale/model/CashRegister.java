@@ -23,7 +23,7 @@ public class CashRegister {
      * 
      * @param amount to add
      */
-    public void addToBalance (Amount amount){
+    void addToBalance (Amount amount){
         balance = balance.add(amount);
     }
     

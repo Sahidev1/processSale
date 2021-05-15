@@ -43,10 +43,9 @@ public class Controller {
      * 
      * @return a reference to the sale in controller
      */
-    public Sale newSale(){
+    public void newSale(){
         this.sale = new Sale();
         sale.givePaymentParts (integrations, cashRegister, printer);
-        return this.sale;
     }
     
     /** 
@@ -59,18 +58,19 @@ public class Controller {
      * @param quantity quantity of the itemDTO type searched
      * @return item that was found in the database with the set quantity
      */
-    public Item searchItem (ItemDTO searchedItem, int quantity){
+    public void searchItem (ItemDTO searchedItem, int quantity){
         ItemRegistry itemReg = integrations.getItemRegistry ();
         Item foundItem = itemReg.searchItem(searchedItem, quantity);
         sale.addItemToSale(foundItem);
         
         if (foundItem.getIsItemValid()){
             if (sale.hasItemAlreadyBeenAdded(foundItem)){
-                return sale.getItemFromTheList(foundItem);
+                System.out.println(sale.getItemFromTheList(foundItem));
+                return;
             }
         }
         
-        return foundItem;
+        System.out.println (foundItem);
     }
     
     /** 
@@ -81,9 +81,9 @@ public class Controller {
      * @param searchedItem an itemDTO object
      * @return Item that was found in the database
      */
-    public Item searchItem (ItemDTO searchedItem){
+    public void searchItem (ItemDTO searchedItem){
         int quantityOfOne = 1;
-        return searchItem (searchedItem, quantityOfOne);
+        searchItem (searchedItem, quantityOfOne);
     }    
     
     /** 

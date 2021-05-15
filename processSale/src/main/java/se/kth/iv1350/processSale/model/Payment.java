@@ -30,7 +30,7 @@ public class Payment {
      * 
      * @return the change
      */
-    public Amount getChange (){
+    Amount getChange (){
         return  change;
     }
     
@@ -38,7 +38,7 @@ public class Payment {
      * This method updates all the external Systems
      * 
      */
-    public void updateExternalSystems (){
+    void updateExternalSystems (){
         ExternalInventory inventory = integrations.getExternalInventory();
         ExternalAccounting accounting = integrations.getExternalAccounting();
         inventory.updateInventory(saleInformation);
@@ -50,7 +50,7 @@ public class Payment {
     /**
      * This method updates the receipt based on the data in this payment object
      */
-    public void updateReceipt (){
+    void updateReceipt (){
         receipt.updateReceipt(this);
     }
     
@@ -59,7 +59,7 @@ public class Payment {
      * 
      * @return saleInformation 
      */
-    public SaleInformation getSaleInformation (){
+    SaleInformation getSaleInformation (){
         return this.saleInformation;
     }
     
@@ -71,7 +71,7 @@ public class Payment {
      * @param cashRegister gives access to the cash register
      * @param printer gives receipt object access to it
      */
-    public void givePaymentParts (IntegrationCreator integrations,
+    void givePaymentParts (IntegrationCreator integrations,
     CashRegister cashRegister, Printer printer){
         this.integrations = integrations;
         this.cashRegister = cashRegister;
@@ -83,7 +83,7 @@ public class Payment {
      * 
      * @param saleInformation 
      */
-    public void giveSaleInformation (SaleInformation saleInformation){
+    void giveSaleInformation (SaleInformation saleInformation){
         this.saleInformation = saleInformation;
     }
     

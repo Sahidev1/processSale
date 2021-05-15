@@ -38,7 +38,7 @@ public class SaleInformation {
      * 
      * @return amount the total price
      */
-    public Amount getTotalPrice (){
+    Amount getTotalPrice (){
         return totalPrice;
     }
 
@@ -47,7 +47,7 @@ public class SaleInformation {
      * 
      * @return amount paid by costumer
      */
-    public Amount getPaymentAmount() {
+    Amount getPaymentAmount() {
         return paymentAmount;
     }
     
@@ -56,7 +56,7 @@ public class SaleInformation {
      * 
      * @return amount paid in VAT
      */
-    public Amount getPaidInVAT() {
+    Amount getPaidInVAT() {
         return paidInVAT;
     }
 
@@ -65,7 +65,7 @@ public class SaleInformation {
      * 
      * @return date object with time and date of sale
      */
-    public Date getTimeOfSale() {
+    Date getTimeOfSale() {
         return timeOfSale;
     }
     
@@ -74,7 +74,7 @@ public class SaleInformation {
      * 
      * @return the store object
      */
-    public StoreDTO getStore() {
+    StoreDTO getStore() {
         return store;
     }
     
@@ -83,7 +83,7 @@ public class SaleInformation {
      * 
      * @return a reference to the list of items
      */
-    public List<Item> getListOfItems (){
+    List<Item> getListOfItems (){
         return items;
     }
     
@@ -94,7 +94,7 @@ public class SaleInformation {
      * @param item which contains item identifier
      * @return the found item if it is found, else null that nothing was found
      */
-    public Item searchForItem (Item item){ 
+    Item searchForItem (Item item){ 
         for (Item itemInList : items) {
             if (itemInList.equals(item)){
                 return itemInList;
@@ -109,7 +109,7 @@ public class SaleInformation {
      * @param item is the item that is getting checked
      * @return true if it is in the list, else false
      */
-    public boolean hasItemAlreadyBeenAdded (Item item){
+    boolean hasItemAlreadyBeenAdded (Item item){
         for (Item itemInList : items){
             if (itemInList.equals(item)){
                 return true;
@@ -124,7 +124,7 @@ public class SaleInformation {
      * 
      * @param item to increment quantity of
      */
-    public void incrementQuantityOfItem (Item item){
+    void incrementQuantityOfItem (Item item){
         item.incrementQuantityOfItem ();
         int quantity = 1;
         updateTotalPrice (item, quantity);
@@ -137,7 +137,7 @@ public class SaleInformation {
      * @param item
      * @param addedQuantity 
      */
-    public void updateQuantityOfItem (Item item, int addedQuantity){
+    void updateQuantityOfItem (Item item, int addedQuantity){
         item.updateQuantityOfItem (addedQuantity);
         updateTotalPrice (item, addedQuantity);
     }
@@ -147,7 +147,7 @@ public class SaleInformation {
      * 
      * @param paymentAmount amount of the payment
      */
-    public void addPayment (Amount paymentAmount){
+    void addPayment (Amount paymentAmount){
         this.paymentAmount = paymentAmount;
     }
     
@@ -156,7 +156,7 @@ public class SaleInformation {
      * 
      * @param item the item to be added
      */
-    public void addItem (Item item){
+    void addItem (Item item){
         items.add(item);
         int quantity =  item.getQuantity();
         updateTotalPrice (item, quantity);
@@ -167,7 +167,7 @@ public class SaleInformation {
      * 
      * @return all the items in the sale as a string
      */
-    public String saleItemsToString (){
+    String saleItemsToString (){
         StringBuilder saleItemsString = new StringBuilder ();
         for (Item itemInList : items){
             saleItemsString.append (itemInList);
@@ -181,7 +181,7 @@ public class SaleInformation {
      * 
      * @param discount the discount object with information about the discount
      */
-    public void updateTotalPriceBasedOnDiscount (Discount discount){
+    void updateTotalPriceBasedOnDiscount (Discount discount){
         Percentage discountPercent = discount.getCalculatedDiscount();
         totalPrice = calculateTotalPriceBasedOnDiscount (discountPercent);
     }
@@ -199,7 +199,7 @@ public class SaleInformation {
      * 
      * @return the difference between amount paid and the total price
      */
-    public Amount calculateChange (){
+    Amount calculateChange (){
         return paymentAmount.subtract(totalPrice);
     }
     

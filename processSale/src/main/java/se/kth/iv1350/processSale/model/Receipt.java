@@ -25,7 +25,7 @@ public class Receipt {
      * 
      * @param saleInformation 
      */
-    public void updateReceipt (Payment payment){
+    void updateReceipt (Payment payment){
         this.payment = payment;
         printer.printReceipt(this);
     }
@@ -35,7 +35,7 @@ public class Receipt {
      * 
      * @param printer that receipt will access
      */
-    public void accessPrinter (Printer printer){
+    void accessPrinter (Printer printer){
         this.printer = printer;
     }
     
