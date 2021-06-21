@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.integration;
 import java.util.ArrayList;
 import java.util.List;
 import se.kth.iv1350.processSale.util.Amount;
+import static se.kth.iv1350.processSale.util.DatabaseCrasher.CRASH_DATABASE_IMMEDIATELY;
 import se.kth.iv1350.processSale.util.Percentage;
 
 /**
@@ -29,8 +30,16 @@ public class ItemRegistry {
      * @param itemDTO the item must match the itemDTO given as argument
      * @param quantity sets the quantity of the returned item
      * @return item object with a specific quantity is returned
+     * @throws ItemNotFoundException when an item could not be found in the database
+     * @throws DatabaseConnectionException when the program cannot connect to a database
      */
-    public Item searchItem (ItemDTO itemDTO, int quantity){
+    public Item searchItem (ItemDTO itemDTO, int quantity) throws 
+            ItemNotFoundException{
+        if (itemDTO.getItemIdentifier().equals(CRASH_DATABASE_IMMEDIATELY)){
+            throw new DatabaseConnectionException("Failed to establish a "
+                    + "connection to the database");
+        }
+        
         String itemIdentifier = itemDTO.getItemIdentifier();
         Item foundItem;
         
@@ -41,9 +50,7 @@ public class ItemRegistry {
                 return foundItem;
             }
         }
-        
-        foundItem = createInvalidItem();
-        return foundItem;
+        throw new ItemNotFoundException(itemDTO);
     }
     
     /** 
@@ -53,8 +60,10 @@ public class ItemRegistry {
      * 
      * @param itemDTO the item must match the itemDTO given as argument
      * @return item object is returned
+     * @throws ItemNotFoundException when an item could not be found in the database
+     * @throws DatabaseConnectionException when the program cannot connect to a database 
      */
-    public Item searchItem (ItemDTO itemDTO){
+    public Item searchItem (ItemDTO itemDTO) throws ItemNotFoundException{
         int quantityOfOne = 1;
         return searchItem (itemDTO, quantityOfOne);
     }
@@ -74,6 +83,7 @@ public class ItemRegistry {
     /**
      * This method creates an Item with isItemValid field set to false
      * 
+     * @deprecated 
      * @return an invalid item
      */
     private Item createInvalidItem (){
@@ -92,20 +102,26 @@ public class ItemRegistry {
     private void retrieveData (){
         Amount priceOfItem0 = new Amount (22);
         Percentage VATofItem0 = new Percentage (6);
-        ItemDTO itemDTO0 = new ItemDTO ("AX356235", "Apple", priceOfItem0, VATofItem0);
+        ItemDTO itemDTO0 = new ItemDTO ("APPLE", "Apple", priceOfItem0, VATofItem0);
         Item apple = new Item (itemDTO0);
         itemData.add(apple);
         
         Amount priceOfItem1 = new Amount (34);
         Percentage VATofItem1 = new Percentage (12);
-        ItemDTO itemDTO1 = new ItemDTO ("AX531319", "Sandwich", priceOfItem1, VATofItem1);
+        ItemDTO itemDTO1 = new ItemDTO ("SAND", "Sandwich", priceOfItem1, VATofItem1);
         Item sandwich = new Item (itemDTO1);
         itemData.add(sandwich);
         
         Amount priceOfItem2 = new Amount (56);
         Percentage VATofItem2 = new Percentage (25);
-        ItemDTO itemDTO2 = new ItemDTO ("BX029510", "Pumpkin", priceOfItem2, VATofItem2);
+        ItemDTO itemDTO2 = new ItemDTO ("PUMP", "Pumpkin", priceOfItem2, VATofItem2);
         Item pumpkin = new Item (itemDTO2);
         itemData.add(pumpkin);
+        
+        Amount priceOfItem3 = new Amount (231);
+        Percentage VATofItem3 = new Percentage (25);
+        ItemDTO itemDTO3 = new ItemDTO ("JACK", "Jacko-o-lantern", priceOfItem3, VATofItem3);
+        Item jackolantern = new Item (itemDTO3);
+        itemData.add(jackolantern);
     }
 }

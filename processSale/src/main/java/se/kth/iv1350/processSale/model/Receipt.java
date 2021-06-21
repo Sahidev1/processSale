@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.model;
 import se.kth.iv1350.processSale.integration.StoreDTO;
 import java.util.Date;
 import se.kth.iv1350.processSale.integration.Printer;
+import se.kth.iv1350.processSale.util.Amount;
 
 /**
  * The receipt contains a string with all the sale information 
@@ -79,13 +80,16 @@ public class Receipt {
                 + "----------------");
         newLine (receiptString);
         newLine (receiptString);
-        receiptString.append("Total price: ").append(saleInfo.getTotalPrice());
+        Amount totalPrice = saleInfo.getTotalPrice();
+        receiptString.append("Total price: ").append(totalPrice.getRoundValue());
         newLine (receiptString);
-        receiptString.append("VAT: ").append(saleInfo.getPaidInVAT());
+        Amount paidInVAT = saleInfo.getPaidInVAT();
+        receiptString.append("VAT: ").append(paidInVAT.getRoundValue());
         newLine (receiptString);
         receiptString.append("Costumer payment: ").append(saleInfo.getPaymentAmount());
         newLine (receiptString);
-        receiptString.append("Change to costumer: ").append(payment.getChange());
+        Amount change = payment.getChange();
+        receiptString.append("Change to costumer: ").append(change.getRoundValue());
         newLine (receiptString);
         
         return receiptString.toString();

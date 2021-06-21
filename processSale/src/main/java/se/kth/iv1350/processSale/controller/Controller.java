@@ -1,14 +1,19 @@
 package se.kth.iv1350.processSale.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import se.kth.iv1350.processSale.integration.CostumerDTO;
+import se.kth.iv1350.processSale.integration.DatabaseConnectionException;
 import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Item;
 import se.kth.iv1350.processSale.integration.Printer;
 import se.kth.iv1350.processSale.integration.ItemDTO;
+import se.kth.iv1350.processSale.integration.ItemNotFoundException;
 import se.kth.iv1350.processSale.integration.ItemRegistry;
 import se.kth.iv1350.processSale.model.CashRegister;
 import se.kth.iv1350.processSale.model.Discount;
 import se.kth.iv1350.processSale.model.Sale;
+import se.kth.iv1350.processSale.model.SaleObserver;
 import se.kth.iv1350.processSale.util.Amount;
 
 /**
@@ -22,6 +27,7 @@ public class Controller {
     private final CashRegister cashRegister;
     private Sale sale;
     private Discount discount;
+    private List<SaleObserver> observers = new ArrayList<>();
 
     
     /** 
@@ -56,21 +62,27 @@ public class Controller {
      * 
      * @param searchedItem an itemDTO object
      * @param quantity quantity of the itemDTO type searched
-     * @return item that was found in the database with the set quantity
+     * @throws ItemNotFoundException when an item couldn't be found
+     * @throws OperationFailedException when the operation could not be performed
      */
-    public void searchItem (ItemDTO searchedItem, int quantity){
+    public void searchItem (ItemDTO searchedItem, int quantity) throws 
+            ItemNotFoundException, OperationFailedException{
         ItemRegistry itemReg = integrations.getItemRegistry ();
-        Item foundItem = itemReg.searchItem(searchedItem, quantity);
-        sale.addItemToSale(foundItem);
         
-        if (foundItem.getIsItemValid()){
+        try {
+            Item foundItem = itemReg.searchItem(searchedItem, quantity);
+            sale.addItemToSale(foundItem, quantity);
+
             if (sale.hasItemAlreadyBeenAdded(foundItem)){
                 System.out.println(sale.getItemFromTheList(foundItem));
                 return;
             }
-        }
         
-        System.out.println (foundItem);
+            System.out.println (foundItem);
+        } catch (DatabaseConnectionException DBexc){
+            throw new OperationFailedException ("Could not search for "
+                    + "item", DBexc);
+        }
     }
     
     /** 
@@ -79,9 +91,10 @@ public class Controller {
      * items in sale  
      * 
      * @param searchedItem an itemDTO object
-     * @return Item that was found in the database
+     * @throws ItemNotFoundException when an item couldn't be found
+     * @throws OperationFailedException when the operation could not be performed
      */
-    public void searchItem (ItemDTO searchedItem){
+    public void searchItem (ItemDTO searchedItem) throws ItemNotFoundException, OperationFailedException{
         int quantityOfOne = 1;
         searchItem (searchedItem, quantityOfOne);
     }    
@@ -109,13 +122,33 @@ public class Controller {
         return sale.getTotalPrice();
     }
     
+    /**
+     * This method returns a rounded value of the total price
+     * 
+     * @return rounded total price
+     */
+    public String getRoundedTotalPrice (){
+        return sale.getTotalPrice().getRoundValue();
+    }
+    
     /** 
      * This method is called to deal with the payment of the sale
      * 
      * @param paymentAmount the amount to pay for the sale
      */
     public void makePayment (Amount paymentAmount){
+        addObserversToSale();         
         sale.makePayment(paymentAmount);
+    }
+
+    private void addObserversToSale() {
+        for (SaleObserver observer : observers){
+            sale.addSaleObserver(observer);
+        }
+    }
+    
+    public void addSaleObserver (SaleObserver saleObserver){
+        observers.add(saleObserver);
     }
 }
 

@@ -6,7 +6,7 @@ package se.kth.iv1350.processSale.util;
  * 
  * @author Ali Sahibi
  */
-public class Amount {
+public class Amount implements RoundValue {
     private double value;
     
     /** 
@@ -25,6 +25,16 @@ public class Amount {
      */
     public double getValue() {
         return value;
+    }
+    
+    /**
+     * Returns rounded value of Amount
+     * 
+     * @return rounded value of amount
+     */
+    @Override
+    public String getRoundValue (){
+        return roundAmount ();
     }
     
     /** 
@@ -65,5 +75,41 @@ public class Amount {
      */
     public Amount multiply (Amount amount){
         return new Amount(value * amount.getValue());
+    }
+    
+    private String roundAmount (){
+        String amountString = String.valueOf(value);
+        StringBuilder roundedValue = new StringBuilder ();
+        
+        int i = 0;
+        while (amountString.charAt(i) != '.'){
+            roundedValue.append(amountString.charAt(i++));
+        }
+        roundedValue.append(amountString.charAt(i++));
+        
+        if (i + 1 == amountString.length()){
+            roundedValue.append(amountString.charAt(i));
+        }
+        
+        else {
+            roundedValue.append(amountString.charAt(i++));
+            if (i + 1 == amountString.length()){
+                roundedValue.append(amountString.charAt(i));
+            }
+            else {
+                i++;
+                int valCurrentDecimal = Integer.parseInt(String.valueOf(amountString.charAt(i)));
+                int valPreviousDecimal = Integer.parseInt(String.valueOf(amountString.charAt(i - 1)));
+                if (valCurrentDecimal >= 5){
+                    valPreviousDecimal++;
+                    roundedValue.append(valPreviousDecimal);
+                }
+                else {
+                    roundedValue.append(valPreviousDecimal);
+                }
+            }
+        }
+        
+        return roundedValue.toString();
     }
 }

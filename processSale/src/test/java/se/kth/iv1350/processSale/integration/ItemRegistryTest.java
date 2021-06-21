@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 import se.kth.iv1350.processSale.util.Amount;
 import se.kth.iv1350.processSale.util.Percentage;
 
@@ -36,7 +37,7 @@ public class ItemRegistryTest {
     
     @BeforeEach
     public void setUp() {
-        validItemDTO = new ItemDTO ("AX356235", "Apple", new Amount (22), new Percentage (6));
+        validItemDTO = new ItemDTO ("APPLE", "Apple", new Amount (22), new Percentage (6));
         invalidItemDTO = new ItemDTO ("INVALID000", "INVALID", new Amount(0), new Percentage (0));
     }
     
@@ -47,7 +48,7 @@ public class ItemRegistryTest {
     }
 
     @Test
-    public void testSearchItemDTOCanItFindAmatchInRegistry (){
+    public void testSearchItemDTOCanItFindAmatchInRegistry () throws ItemNotFoundException{
         int quantity = 1;
         String itemIdentifierOfValidItem = validItemDTO.getItemIdentifier();
         Item foundItem = itemRegistry.searchItem(validItemDTO, quantity);
@@ -58,8 +59,9 @@ public class ItemRegistryTest {
         + " In the database and that it should have found");    
     }
     
+    @Disabled
     @Test
-    public void testSearchItemDTODoesItReturnAnInvalidItemIfNoMatchInRegistry (){
+    public void testSearchItemDTODoesItReturnAnInvalidItemIfNoMatchInRegistry () throws ItemNotFoundException{
         int quantity = 1;
         Item foundItem = itemRegistry.searchItem(invalidItemDTO, quantity);
         boolean condition = foundItem.getIsItemValid();
@@ -68,7 +70,7 @@ public class ItemRegistryTest {
     }
     
     @Test
-    public void testSearchItemDTODoesItReturnAnItemWithCorrectQuantity (){
+    public void testSearchItemDTODoesItReturnAnItemWithCorrectQuantity () throws ItemNotFoundException{
         int quantity = 5;
         Item foundItem = itemRegistry.searchItem (validItemDTO, quantity);
         int quantityOfFoundItem = foundItem.getQuantity();

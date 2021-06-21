@@ -3,6 +3,7 @@ package se.kth.iv1350.processSale.startup;
 import se.kth.iv1350.processSale.controller.Controller;
 import se.kth.iv1350.processSale.integration.IntegrationCreator;
 import se.kth.iv1350.processSale.integration.Printer;
+import se.kth.iv1350.processSale.view.CommandLineGUI;
 import se.kth.iv1350.processSale.view.View;
 
 /**
@@ -21,7 +22,7 @@ public class Main {
         IntegrationCreator integrationCreator = new IntegrationCreator();
         Printer printer = new Printer ();
         Controller contr = new Controller(integrationCreator, printer);
-        View view = new View (contr);  
-        view.hardCodedCalls();
+        CommandLineGUI cmdGUI = new CommandLineGUI(contr);  
+        cmdGUI.runGUI();
     }
 }

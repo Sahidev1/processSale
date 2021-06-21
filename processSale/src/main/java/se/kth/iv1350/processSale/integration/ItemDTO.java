@@ -99,7 +99,7 @@ public class ItemDTO {
         itemDTOString.append("itemDescription: ").append (itemDescription);
         newLine (itemDTOString);
         
-        itemDTOString.append("price: ").append (price);
+        itemDTOString.append("price: ").append (price.getRoundValue());
         newLine (itemDTOString);
         
         itemDTOString.append("itemVAT: ").append (itemVAT);
